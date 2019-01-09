@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^(.*)\.html$ index.php?page=$1 [QSA,L]
+
+ErrorDocument 404 /PI_test/index.php?page=404&data=%{REQUEST_URI}

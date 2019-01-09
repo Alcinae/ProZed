@@ -1,0 +1,72 @@
+  {{ include('partials/header.html') }} 
+  
+        <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Ateliers à venir</div>
+              <form>
+            <div class="card-body">
+                
+              <div class="table-responsive">
+                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Date</th>
+                      <th>Nom</th>
+                      <th>Description</th>
+                      <th>Me le rappeler par email</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><img src="images/logo.png" class="img-fluid"/></td>
+                      <td>XX/XX/XXXX</td>
+                      <td>Atelier creation sac</td>
+                      <td>Creation de sac.
+                      
+                      <br><br><strong> Le xx/xx/xxxx de XXhXX a XXhXX. </strong><br>
+                      <em>Lieu: XXXXXXXXX.</em>
+                      </td>
+
+                      <td>
+                        <form>
+                            <input type="checkbox" class="subsLink" value="false" data-id="1" data-token="eeeeeeeeee">
+                        </form>
+                      </td>
+                      
+                    </tr>
+                    <tr>
+                      <td><img src="images/logo.png" class="img-fluid" /></td>
+                      <td>XX/XX/XXXX</td>
+                      <td>Atelier creation sac</td>
+                      <td>Creation de sac.
+                      
+                      <br><br><strong> Le xx/xx/xxxx de XXhXX a XXhXX. </strong><br>
+                      <em>Lieu: XXXXXXXXX.</em>
+                      </td>
+                      <td>
+                        <form>
+                            <input type="checkbox" class="subsLink" value="false"  data-id="2" data-token="eeeeeeee">
+                        </form>
+                      </td>
+                    </tr>
+                                       
+                  </tbody>
+                </table>
+              </div>
+                
+            </div>
+            <!--
+            <div class="card-footer small text-muted ">
+                <div class="form-row align-items-center">
+                <div class="col-auto">Saisie pour le </div><div class="col-auto"><input type="date" value="10/10/2018" max="10/10/2019" class="form-control" placeholder="Poids"></div>.</div>
+            </div>
+            -->
+          </form>
+          </div>
+  
+  
+  {{ include('partials/footer.html') }} 
+   

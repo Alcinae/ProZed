@@ -1,0 +1,91 @@
+  {{ include('partials/header.html') }} 
+  
+  
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Paramètres</div>
+              <form>
+            <div class="card-body">
+              <div class="alert alert-dark">Valeurs pour le mois actuel.</div>
+              <div class="table-responsive">
+              <form>
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Famille</th>
+                      <th>Nbr. Personnes</th>
+                      <th>Ville</th>
+                      <th>Ordures ménagères (Kgs/Pers)</th>
+                      <th>Compost (Kgs/Pers)</th>
+                      <th>Tri sélectif (Kgs/Pers)</th>
+                      <th>Verre (Kgs/Pers)</th>
+                      <th>Voir</th>
+                    </tr>
+                  </thead>
+                  <!--
+                  <tfoot>
+                    <tr>
+                      <th>Famille</th>
+                      <th>Référent</th>
+                      <th>Ville</th>
+                      <th>Voir</th>
+                    </tr>
+                  </tfoot>
+                  -->
+                  <tbody>
+                    <tr>
+                      <td>Brouille</td>
+                      <td>3</td>
+                      <td>Nimes</td>
+                      <td>45</td>
+                      <td>67</td>
+                      <td>34</td>
+                      <td>56</td>
+                      <td><input type="checkbox" class="familleSelector" data-idFamille="eeeeeee"></td>
+                    </tr>
+                    <tr>
+                      <td>Bricole</td>
+                      <td>2</td>
+                      <td>Nimes</td>
+                      <td>34</td>
+                      <td>65</td>
+                      <td>23</td>
+                      <td>34</td>
+                      <td><input type="checkbox" class="familleSelector"  data-idFamille="eeeeeeey"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <form>
+                
+            </div>
+            
+            <div class="card-footer small text-muted ">
+                <a href="exportdata.php" class="btn btn-dark">Exporter en feuille Excel</a>
+            </div>
+            
+          </form>
+          </div>
+          
+          <!-- Area Chart Example-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+              Graphique</div>
+            <div class="card-body">
+                <select class="form-control" id="dataTypeSelector" name="#dataTypeSelector" data-idFamille="eeeeeeex">
+                    <option>Ordures ménagères</option>
+                    <option>Compost</option>
+                    <option>Tri sélectif</option>
+                    <option>Verre</option>
+                </select>
+                <canvas id="myAreaChart" width="100%" height="30"></canvas>
+            </div>
+             <div class="card-footer small text-muted">
+                Mise à jour a xxhxx.
+            </div>
+          </div>
+  
+  {{ include('partials/footer.html') }} 
+   

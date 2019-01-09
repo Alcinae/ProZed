@@ -1,0 +1,112 @@
+   {{ include('partials/header_public.html') }} 
+   <div class="card card-register mx-auto mt-5">
+        <div class="card-header">S'inscrire</div>
+        <div class="card-body">
+        <h1 class="text-center">Espace réservé aux familles du défi</h1>
+          <form method="post" action="">
+          <div class="form-group">
+            <div class="form-row">
+            
+                <div class="col-md-6">
+                
+                  <div class="form-label-group">
+                    <input type="text" name="fname" id="firstNameRef" class="form-control" placeholder="Prénom" required="required">
+                    <label for="firstNameRef">Prénom</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" name="lname" id="lastNameRef" class="form-control" placeholder="Nom" required="required">
+                    <label for="lastNameRef">Nom</label>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+            <div class="form-group">
+            <div class="form-row">
+            
+                <div class="col-md-2">
+                
+                  <div class="form-label-group">
+                    <input type="text" name="city" id="ville" class="form-control" placeholder="Ville" value="Nîmes" required="required">
+                    <label for="ville">Ville</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <div class="form-label-group">
+                    <input type="text" name="address" id="adresse" class="form-control" placeholder="Adresse">
+                    <label for="adresse">Adresse</label>
+                  </div>
+                </div>
+              </div>
+              </div>
+          
+          
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Adresse Email" required="required">
+                <label for="inputEmail">Adresse Email</label>
+              </div>
+            </div>
+            <div class="form-group">
+
+              <div class="form-row">
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                    <label for="inputPassword">Mot de passe</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="password" name="password2" id="confirmPassword" class="form-control" placeholder="Confirmation du mot de passe" required="required">
+                    <label for="confirmPassword">Confirmation du mot de passe</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row align-items-center">
+                <div class="col-auto">
+                Composition famille : 
+                </div>
+                <div class="col-auto">
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="family_size" placeholder="1" value="1" min="1" required="required"> 
+                        <div class="input-group-append">
+                            <span class="input-group-text">Personnes</span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+              
+              <div class="checkbox">
+                  <div >
+                    <label for="consentCarte">
+                    <input type="checkbox" name="consent_map" id="consentCarte" name="consentCarte" value="true" checked>
+                    J'accepte d'apparaître sur la carte. (Acessible aux membres uniquement)</label>
+                  </div>
+              </div>
+              <div class="checkbox">
+                  <div >
+                    <label for="consentMail">
+                    <input type="checkbox" name="consent_email" id="consentMail" name="consentMail" value="true" >
+                    J'accepte de reçevoir des mails de la part de Luluzed. (<strong>Important</strong>)</label>
+                  </div>
+              </div>  
+              
+              
+              
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="S'inscrire">
+          </form>
+          <div class="text-center">
+            <a class="d-block small mt-3" href="login.html">Page de connexion</a>
+            
+          </div>
+        </div>
+      </div> 
+{{ include('partials/footer_public.html') }} 

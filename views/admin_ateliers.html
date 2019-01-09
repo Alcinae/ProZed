@@ -1,0 +1,106 @@
+  {{ include('partials/header.html') }} 
+  
+         
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Liste des ateliers en cours</div>
+              <form>
+            <div class="card-body">
+                
+                                    <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Date</th>
+                      <th>Nom</th>
+                      <th>Description</th>
+                      <th class="hide-this"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><img src="images/logo.png" class="img-fluid"/></td>
+                      <td>XX/XX/XXXX</td>
+                      <td>Atelier creation sac</td>
+                      <td>Creation de sac.
+                      
+                      <br><br><strong> Le xx/xx/xxxx de XXhXX a XXhXX. </strong><br>
+                      <em>Lieu: XXXXXXXXX.</em>
+                      </td>
+                      <td><a href="admin_ateliers.html?del=1&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                    </tr>
+                                       
+                  </tbody>
+                </table>
+                </div>
+                
+            </div>
+
+          </form>
+          </div>
+          
+          <!-- Area Chart Example-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+              Ajouter un atelier</div>
+            <div class="card-body">
+            <form method="post" action="" enctype="multipart/form-data">
+            
+              <div class="form-row">
+              <!-- <div class="form-group"> -->
+              <div class="col-md-4">
+                <div class="form-row">
+
+                    <div class="form-group"><input type="text" class="form-control" name="name" placeholder="Nom" /></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><input type="text" class="form-control" name="place" placeholder="Lieu" /></div>
+                </div>
+                <div class="form-row">
+                <div class="form-group">
+                <div clas="col">
+                    <div ><label for="date">Jour de l'atelier</label><input type="date" id="date" class="form-control" name="date" placeholder="Date" /></div>
+                </div>
+                <div clas="col">
+                     <div ><label for="start">Heure de début</label><input type="time" id="start" class="form-control" name="start" placeholder="Debut" /></div>
+                </div>
+                <div clas="col">
+                     <div ><label for="end">Heure de fin</label><input type="time" id="end" class="form-control" name="end" placeholder="Fin" /></div>
+                </div>
+                </div>
+                </div>
+              <div class="form-row">
+                <label>
+                Illustration : 
+                <input type="file" name="image" id="image" class="">
+                </label>
+              </div>
+              
+              </div>
+             <!--  </div> -->
+              <div class="col-md-8">
+              
+                <textarea class="form-control" id="desc" value="   " style="height: 98%;" name="desc" placeholder="Des détails complémentaires peuvent être renseignés ici." > </textarea>
+              </div>
+              
+              </div>
+
+              <div class="form-row-md-12">
+              <div class="form-group">
+              <input type="submit" class="form-control" value="Ajouter">
+              </div></div>
+              
+              </form>
+            </div>
+            
+          </div>
+
+
+
+  
+  
+  {{ include('partials/footer.html') }} 
+   

@@ -1,0 +1,97 @@
+  {{ include('partials/header.html') }} 
+  
+  
+           <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Informations personelles</div>
+              <form>
+            <div class="card-body">
+        <form>
+          <div class="form-group">
+            <div class="form-row">
+            
+                <div class="col-md-6">
+                
+                  <div class="form-label-group">
+                    <input type="text" id="firstNameRef" class="form-control" placeholder="Prénom" required="required">
+                    <label for="firstNameRef">Prénom</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="text" id="lastNameRef" class="form-control" placeholder="Nom" required="required">
+                    <label for="lastNameRef">Nom</label>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+            <div class="form-group">
+            <div class="form-row">
+            
+                <div class="col-md-2">
+                
+                  <div class="form-label-group">
+                    <input type="text" name="ville" id="ville" class="form-control" placeholder="Ville" value="Nîmes" required="required">
+                    <label for="ville">Ville</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <div class="form-label-group">
+                    <input type="text" id="adresse" class="form-control" placeholder="Adresse" required="required">
+                    <label for="adresse">Adresse</label>
+                  </div>
+                </div>
+              </div>
+              </div>
+          
+          
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Adresse Email" required="required">
+                <label for="inputEmail">Adresse Email</label>
+              </div>
+            </div>
+            <div class="form-group">
+
+              <div class="form-row">
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                    <label for="inputPassword">Mot de passe</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-label-group">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmation du mot de passe" required="required">
+                    <label for="confirmPassword">Confirmation du mot de passe</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row align-items-center">
+                <div class="col-auto">
+                Composition famille : 
+                </div>
+                <div class="col-auto">
+                    <div class="input-group">
+                        <input type="number" class="form-control" placeholder="1" value="1" min="1" required="required"> 
+                        <div class="input-group-append">
+                            <span class="input-group-text">Personnes</span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
+              
+              
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="S'inscrire">
+          </form>
+          </div></div>
+
+  
+  {{ include('partials/footer.html') }} 
+   

@@ -1,0 +1,91 @@
+
+  {{ include('partials/header.html') }} 
+
+         
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Générer un lien d'inscription</div>
+            
+            <div class="card-body">
+            <form action="" method="post">
+          <div class="form-group">
+          <div class="form-row">
+          <p>Les liens d'inscriptions sont uniques, ils ne sont plus valables après utilisation.</p>
+          </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                  
+                    <select class="form-control" id="roleSelector"  name="roleSelector">
+                        <option>Participant</option>
+                        <option>Référrent</option>
+                        <!--<option>Administrateur</option>-->
+                    </select>
+                </div>
+                <div class="col-md-2">
+                   <input type="submit" value="Générer" class="form-control"/> 
+                </div>
+              </div>
+              </div> 
+               <!--<input type="hidden" value="" name="ajax" id="ajax" />-->
+              </form>
+
+              <div id="linkDisplay">
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Lien d'inscription pour <mark>UN</mark> participant :</strong> <em><a href="#" >http://MYDOMAIN/register.html?token=eeeeeeeeeeeeeeeeeeeeeeee</a></em>
+                </div>
+              </div>  
+                
+            </div>
+
+    
+            </div>
+          
+          
+          
+          
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Membres</div>
+              <form>
+            <div class="card-body">
+           <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Famille</th>
+                      <th>Ville</th>
+                      <th>Membres</th>
+                      <th>Adresse mail</th>
+                      <th>Status</th>
+                      <th class="hide-this"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Brouille</td>
+                      <td>Nîmes</td>
+                      <!-- <td><a href="#" class="btn btn-info" onClick="showFamily(['1','2','3'], 'Tiger');">3</a></td> -->
+                      <td>3</td>
+                      <td>xxx@xxx.fr</td>
+                      <td>Participant</td>
+                      <td><a href="membre_edit.html?a=edit&id=2&token=eeeeeeee" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                      <a href="membre_delete.html?a=del&id=2&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                    </tr>
+                    <tr>
+                      <td>Bricole</td>
+                      <td>Nîmes</td>
+                      <td>4</td>
+                      <td>xxx@xxx.fr</td>
+                      <td>Paricipant</td>
+                      <td><a href="membre_edit.html?id=2&token=eeeeeeee" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                      <a href="membre_delete.html?id=2&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </div> 
+   {{ include('partials/footer.html') }} 
