@@ -98,7 +98,7 @@ function updateChart(chart, channel, subjects){
     $.ajax({
         url: 'chart_data_api.php', //should use session vars to check we are a logged in user. Should return data in the same order as requested
         dataType: 'json',
-        type: 'get',
+        type: 'POST',
         contentType: 'text/json',
         indexValue: [chart, channel, subjects], //pass the variables to the ajax call context
         data: {

@@ -61,11 +61,6 @@ class User {
         return $this->loadData($data["id"]);
     }
     
-    /**
-    DANGEROUS: do not call if not initialized
-    
-    */
-    
     public function reloadData(){
         if(initialized)
             return loadData($this->id);
@@ -101,21 +96,11 @@ class User {
         return true;
     }
     
-    public function registerFromPOST($token){
+    public function registerFromPOST(){
         if($this->initialized) return gen_error("", "Vous etes deja inscrit et connecte.");
         $db = getDB();
         
-        $query = $db->prepare("SELECT uuid,role FROM register_token WHERE uuid=:uuid");
-        $query->bindValue(':uuid', $token, PDO::PARAM_STR);
-        $query->execute();
-        $uuid_data = $query->fetchAll();
-        
-        //var_dump($uuid_data);
-        
-        if(count($uuid_data) != 1)
-            return gen_error("", "Veillez suivre le lien d'inscription tel qu'il est ecrit dans le mail.");
-        
-        unset($query);
+
          /*
         $i_fname = s($_POST["fname"]);
         $i_lname = s($_POST["lname"]);
@@ -228,8 +213,7 @@ class User {
         $result = $query->execute();
         unset($query);
         
-        $query = $db->prepare("DELETE FROM register_token WHERE uuid = ?");
-        $query->execute([$uuid_data[0]["uuid"]]);
+
         
 
         

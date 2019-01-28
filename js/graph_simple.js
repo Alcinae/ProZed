@@ -6,7 +6,7 @@ function updateChart(chart, channel, subjects){
            $.ajax({
                 url: 'chart_data_api.php',
                 dataType: 'json',
-                type: 'get',
+                type: 'POST',
                 indexValue: [chart, channel, subjects],
                 contentType: 'text/json',
                 data: {
@@ -14,12 +14,18 @@ function updateChart(chart, channel, subjects){
                     from: subjects
                 },
                 success: function( data, textStatus, jQxhr ){
+                    console.log(data);
+                    console.log(nameMapping[this.indexValue[1]]);
                     var rawData = data;
+                    
+                    this.indexValue[0].data.datasets = []; //TODO: check how to properly do this. I don't even know if it works'
+
                     for(var i = 0; i < this.indexValue[2].length; i++)
                     {
-                        this.indexValue[0].data.datasets[i] = {}; //TODO: check how to properly do this. I don't even know if it works'
-                        this.indexValue[0].data.datasets[i] = rawData.data[indexValue[1]][i];
-                        
+
+                        this.indexValue[0].data.datasets[i] = rawData.data[nameMapping[this.indexValue[1]]][i];
+                        this.indexValue[0].data.datasets[i].data = Object.values(this.indexValue[0].data.datasets[i].data); //TODO: not sure if values are ordered as intended. Will do for a demo. But should be investigated
+                        console.log(rawData.data[nameMapping[this.indexValue[1]]][i]);
                     }
                     this.indexValue[0].options.scales.yAxes[0].ticks = $.extend(this.indexValue[0].options.scales.yAxes[0].ticks,rawData.yScaleTicks);
                     this.indexValue[0].update();

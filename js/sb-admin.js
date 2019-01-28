@@ -39,6 +39,19 @@
 
 })(jQuery); // End of use strict
 
+var nameMapping = {
+    "Ordures ménagères": "ordure",
+    "Compost": "compost",
+    "Tri sélectif": "tri",
+    "Verre": "verre"
+};
+/*
+ <option>Ordures ménagères</option>
+                    <option>Compost</option>
+                    <option>Tri sélectif</option>
+                    <option>Verre</option>
+ * */
+
 var DTLang = {
 	"sProcessing":     "Traitement en cours...",
 	"sSearch":         "Rechercher&nbsp;:",

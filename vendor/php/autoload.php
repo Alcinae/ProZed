@@ -8,7 +8,7 @@ spl_autoload_register(function ($class) {
     $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
         // no, move to the next registered autoloader
-        require($class . '.php');
+        //require($class . '.php');
         return;
     }
     // get the relative class name
@@ -21,6 +21,14 @@ spl_autoload_register(function ($class) {
     if (file_exists($file)) {
         require($file);
     }
+});
+
+spl_autoload_register(function ($class) {
+    $dir = __DIR__ . "/Color/";
+    $file = "Color.php";
+    if($class === "Color")
+        if(file_exists($dir.$file)) 
+            require($dir.$file);
 });
 
 ?>
