@@ -3,11 +3,13 @@
  * Color utility and conversion
  * 
  * Represents a color value, and converts between RGB/HSV/XYZ/Lab
- * 
+ * Extras (shade, copyfrom....) by JL-intech
+ *
  * Example:
  * $color = new Color(0xFFFFFF);
  * 
  * @author Harold Asbridge <hasbridge@gmail.com>
+ * @author JL-intech
  */
 class Color
 {
@@ -25,8 +27,10 @@ class Color
      */
     public function __construct($intColor = null)
     {
-        if ($intColor) {
+        if (getType($intColor) === "integer") {
             $this->fromInt($intColor);
+        }elseif(getType($intColor) === "boolean"){
+            $this->fromRgbInt(rand(0, 255), rand(0, 255), rand(0, 255));
         }
     }
     
@@ -42,6 +46,24 @@ class Color
         $this->color = hexdec($hexValue);
         
         return $this;
+    }
+    
+    public function copyFrom($obj){
+        $this->fromInt($obj->toInt());
+    }
+    
+    public function shade($value){
+    
+        $orig = $this->toRgbInt();
+        
+        $value = (float) $value;
+        $value = $value > 1 ? 1 : $value;
+        $value = $value < -1 ? -1 : $value;
+        
+        $rad = $value < 0 ? 0 : 255;
+        $mult = abs($value);
+        
+        $this->fromRgbInt(round(($rad-$orig["red"])*$mult)+$orig["red"], round(($rad-$orig["green"])*$mult)+$orig["green"], round(($rad-$orig["blue"])*$mult)+$orig["blue"]);
     }
     
     /**
