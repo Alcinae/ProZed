@@ -61,6 +61,7 @@ if(function_exists("pageLogic")){
 }else{
     
 }
+$pageData['user'] = $_SESSION["user"];
 $pageData['pageData'] = $APP_page->pageInfo();
 $pageData['csrf'] = csrf();
 $pageData["menu"] = constructMenu($menu);

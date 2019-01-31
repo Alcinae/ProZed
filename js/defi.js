@@ -83,7 +83,7 @@ $(document).ready(function() {
             $("").text(data["val"]);
             var i = 0;
             for(var e in data.data){
-                myLineChart.data.datasets[i].data = data.data[e][0].data; //get the "e" channel for the first subject (and we requested only one) //IMPORTANT:We only want data as color is fixed on this page
+                myLineChart.data.datasets[i].data = Object.values(data.data[e][0].data); //get the "e" channel for the first subject (and we requested only one) //IMPORTANT:We only want data as color is fixed on this page
                 i++;
             }
             myLineChart.options.scales.yAxes[0].ticks = $.extend(myLineChart.options.scales.yAxes[0].ticks,data.yScaleTicks);

@@ -5,16 +5,24 @@ require_once("vendor/php/autoload.php");
 require_once("includes/sys_account.php");
 session_start();
 
-//$avgColor = Color::fromRgbInt(0,255,89);
-//$avgColor2 = Color::fromRgbInt(0,44,88);
-
-$pickedColor = [];    
-
-    function pickColor($average){
     
+    function pickUniqueColor(array $usedColors, $distance){ //TODO: prevent infinite loop by automatically reducing distance
+        $color;
+                        
+        $uniqueColor = true;
+        do{
+            $color = new Color(true); //random Color 
+            foreach($usedColors as $currentColor)
+            {
+                $uniqueColor &= ($color->getDistanceRgbFrom($currentColor) >= $distance);
+            }
+            
+            if($distance>5)
+                $distance -= 5;
+                
+        }while(!$uniqueColor);
+        return $color;
     }
-
-    //two templates used to build the json objects
     
     $dataElmTmpl = [
         "label" => "PERSONNE (Kgs/Pers)",
@@ -31,9 +39,9 @@ $pickedColor = [];
 
         "pointBorderColor" => "rgba(R,G,B,A)",
 
-        "pointHoverRadius" => 5,
+        //"pointHoverRadius" => 5,
 
-        "pointHoverBackgroundColor" => "rgba(R,G,B,A)",
+        //"pointHoverBackgroundColor" => "rgba(R,G,B,A)",
 
         "pointHitRadius" => 50,
 
@@ -57,15 +65,16 @@ $pickedColor = [];
 $month_remap = ["11" => 0, "12" => 1, "1" => 2, "2" => 3, "3" => 4, "4" => 5, "5" => 6];
 
 header('Content-Type: application/json');
+$data_out = [];
 
 if(!$_SESSION["user"]->hasCap("member"))
 {
-    die("{\"error\": \"Acces refuse\"}");
+    $data_out["errorStr"] = "Acces refuse.";
 }
 
 $db = getDB();
 
-$data_out = [];
+
 $allowed_channels = ["tri", "verre", "ordure", "compost"];
 
 //$_POST["channel"] = ["tri"];
@@ -76,8 +85,8 @@ $allowed_channels = ["tri", "verre", "ordure", "compost"];
 //}
 
 //TODO remove once testing done
-$_POST["channel"] = ["tri", "verre", "ordure", "compost"];
-$_POST["from"] = [6];
+//$_POST["channel"] = ["tri", "verre", "ordure", "compost"];
+//$_POST["from"] = [6];
 
 if(isset($_POST["channel"]) && isset($_POST["from"]))
 {
@@ -150,6 +159,8 @@ if(isset($_POST["channel"]) && isset($_POST["from"]))
     $maxValue = null;
     $minValue = null;
     
+    $pickedColor = [];
+    
     foreach($data as $dataElm) 
     {
         $index = -1;
@@ -167,8 +178,25 @@ if(isset($_POST["channel"]) && isset($_POST["from"]))
             foreach($allowed_channels as $currentChannel)
             {
                 if(array_key_exists($currentChannel, $dataElm)){
-                    if(empty($data_out["data"][$currentChannel][$index])){
+                    if(empty($data_out["data"][$currentChannel][$index])){ //if this is a new item in the array
                         $data_out["data"][$currentChannel][$index] = $dataElmTmpl; //should only copy
+                        $baseColor = pickUniqueColor($pickedColor, 20);
+                        $pickedColor[] = $baseColor;
+                        
+                        //$baseColor = new Color(true);
+                        $bgColor = new Color();
+                        $bgColor->copyFrom($baseColor);
+                        $bgColor->shade(0.6);
+                        
+                        $bgColorRgb = $bgColor->toRgbInt();
+                        $lineColorRgb = $baseColor->toRgbInt();
+                        
+                        $data_out["data"][$currentChannel][$index]["backgroundColor"] = "rgba({$bgColorRgb["red"]},{$bgColorRgb["green"]},{$bgColorRgb["blue"]},0.05)";
+                        $data_out["data"][$currentChannel][$index]["borderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
+                        $data_out["data"][$currentChannel][$index]["pointBackgroundColor"] = "rgba({$bgColorRgb["red"]},{$bgColorRgb["green"]},{$bgColorRgb["blue"]},0.05)";
+                        $data_out["data"][$currentChannel][$index]["pointBorderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
+                        
+                        
                     }
                     $data_out["data"][$currentChannel][$index]["label"] = "Famille ".$dataElm["lname"]." (Kgs/P)";
                     $data_out["data"][$currentChannel][$index]["data"][(int) $month_remap[$dataElm["month"]]] = (float) $dataElm[$currentChannel];
@@ -205,6 +233,22 @@ if(isset($_POST["channel"]) && isset($_POST["from"]))
                 if(array_key_exists($currentChannel, $dataElm)){
                     if(empty($data_out["data"][$currentChannel][$index])){
                         $data_out["data"][$currentChannel][$index] = $dataElmTmpl; //should only copy
+                        
+                        $baseColor = pickUniqueColor($pickedColor, 25);
+                        $pickedColor[] = $baseColor;
+                        
+                        //$baseColor = new Color(true);
+                        $bgColor = new Color();
+                        $bgColor->copyFrom($baseColor);
+                        $bgColor->shade(0.6);
+                        
+                        $bgColorRgb = $bgColor->toRgbInt();
+                        $lineColorRgb = $baseColor->toRgbInt();
+                        
+                        $data_out["data"][$currentChannel][$index]["backgroundColor"] = "rgba({$bgColorRgb["red"]},{$bgColorRgb["green"]},{$bgColorRgb["blue"]},0.05)";
+                        $data_out["data"][$currentChannel][$index]["borderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
+                        $data_out["data"][$currentChannel][$index]["pointBackgroundColor"] = "rgba({$bgColorRgb["red"]},{$bgColorRgb["green"]},{$bgColorRgb["blue"]},0.05)";
+                        $data_out["data"][$currentChannel][$index]["pointBorderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
                     }
                     $data_out["data"][$currentChannel][$index]["label"] = "Moyenne $currentChannel (Kgs/P)";
                     $data_out["data"][$currentChannel][$index]["data"][(int) $month_remap[$dataElm["month"]]] = (float) $dataElm[$currentChannel];
@@ -222,114 +266,14 @@ if(isset($_POST["channel"]) && isset($_POST["from"]))
     
     $data_out["yScaleTicks"]["min"] = $minValue;
     $data_out["yScaleTicks"]["max"] = $maxValue;
-    /*
-    foreach($nameMapping as $key => $value)
+    
+}else{
+    $keys = array_keys($_POST);
+    foreach($keys as $key)
     {
-        $data_out["debug"][] = "Map $key => $value";
+        $data_out["debug"][] = "POSTKey: ".$key;
     }
-    */
-    /*
-    foreach($allowed_channels as $currentChannel)
-    {
-        
-        
-        
-        foreach($data as $entry){ //TODO we are not getting the index of $data_out["data"] used for the user
-            
-            
-            $index = -1;
-            if(array_key_exists($entry["id"], $nameMapping))
-            {
-                $index = (int) $nameMapping[$entry["id"]];
-            }else{
-                $index = (int) $indexCounter++;
-                array_push($nameMapping, [ $entry["id"] => $index ]);
-            }
-            if(empty($data_out["data"][$index]))
-            {
-                $data_out["data"][$index] = array_clone($dataElm); //Init with default value
-                $data_out["data"][$index]["label"] = "Famille ".$entry["lname"]." (Kgs/P)";
-                
-            }else{
-                $data_out["data"][$index] = $data_out["data"][$index]; //TODO wtf is this
-            }
-            
-            if(array_key_exists($currentChannel, $entry))
-                $data_out["data"][$index]["data"][$month_remap[$entry["month"]]] = $entry[$currentChannel];
-            
-            $data_out["data"][$index]["channel"] = $currentChannel;
-        }
-         foreach($data2 as $entry){
-            if(!array_key_exists($currentChannel, $entry)) { //FIXME i think all channels are returned inside array, thats why we have 
-                continue;
-            }
-            //################################
-            //$avgElm = array_clone($dataElm);  //Init with default value
-            $index = -1;
-            if(array_key_exists("**AVERAGE**", $nameMapping))
-            {
-                    $index = (int) $nameMapping["**AVERAGE**"];
-            }else{
-                    $index = (int) $indexCounter++;
-                    array_push($nameMapping, [ "**AVERAGE**" => $index ]);
-            }
-            
-            if(empty( $data_out["data"][$index])){
-                $data_out["data"][$index] = array_clone($dataElm);
-            }
-            
-
-            
-            $data_out["data"][$index]["data"][$month_remap[$entry["month"]]] = $entry[$currentChannel];
-                //$data_out["data"][$currentChannel][$index] = $dataElm;
-            
-                
-            $data_out["data"][$index]["label"] = "Moyenne $currentChannel (Kgs/P)";
-            //foreach($data2 as $avgEntry){
-           // if(array_key_exists($currentChannel, $avgEntry))
-                $data_out["data"][$index]["data"][$month_remap[$entry["month"]]] = $entry[$currentChannel];
-            //}
-            $data_out["data"][$index]["channel"] = $currentChannel;
-        }
- 
-            
-        //var_dump($nameMapping);
-    }
-    */
-    
-    /*
-    foreach($data as $entry){ //FIXME: I fucked up this not how the output format works
-        $currentChannel = "";
-        foreach($entry as $key => $value){
-            
-            if(substr($key,0,2) === "d_")
-            {
-                $currentChannel = str_replace("d_", "", $key);
-            }
-        }
-        if(empty($nameMapping[$entry["id"]])){
-            $nameMapping[] = $entry["id"];
-        }
-        $dataChannels_memberIndex = array_search($entry["id"]);
-
-        
-            
-        //$entry[""]
-        if(empty($data_out["data"][$currentChannel][$dataChannels_memberIndex])){ //If this entry has already been done
-        
-            $currentEntryOut = $dataElm;
-            $dataElm["label"] = $entry["lname"]." (Kgs/Personne)";
-            $dataElm["data"] = $entry["lname"]." (Kgs/Personne)";
-        
-            $data_out["data"][$currentChannel][$dataChannels_memberIndex] =
-        }
-        
-         = array_merge_recursive($currentEntryOut, $data_out["data"][$currentChannel][$dataChannels_memberIndex]);
-        
-    }
-    */
-    
-    
+    $data_out["errorStr"] = "Erreur de parametres.";
 }
 
 echo json_encode($data_out);

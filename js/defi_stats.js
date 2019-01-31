@@ -108,11 +108,13 @@ function updateChart(chart, channel, subjects){
         success: function( data, textStatus, jQxhr ){
             console.log("requestSucess");
             var rawData = data;
-            
+            console.log(rawData);
             for(var i = 0; i < this.indexValue[2].length; i++)
             {
-                this.indexValue[0].data.datasets[i].data = rawData.data[i];
-                this.indexValue[0].data.datasets[i].label = rawData.label[i];
+                console.log("Loop Index: "+i);
+                //console.log(this.indexValue[1]); //NOTE: seems like because we can't have an array in an array, the indexvalue[1] get converted to simple value because there is only one value in the array. this may cause a problem and will probably need to be fixed
+                this.indexValue[0].data.datasets[i].data = Object.values(rawData.data[nameMapping[this.indexValue[1]/*[0]*/]][i]); //FIXME: does not work because data[i] do not exist, we must specify the channel : data["channel"][i]
+                //this.indexValue[0].data.datasets[i].label = rawData.label[i];
                 
             }
             this.indexValue[0].options.scales.yAxes[0].ticks = rawData.yScaleTicks;

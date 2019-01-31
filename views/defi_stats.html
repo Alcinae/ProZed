@@ -34,26 +34,18 @@
                   </tfoot>
                   -->
                   <tbody>
+                  {% for value in usersData %}
                     <tr>
-                      <td>Brouille</td>
-                      <td>3</td>
-                      <td>Nimes</td>
-                      <td>45</td>
-                      <td>67</td>
-                      <td>34</td>
-                      <td>56</td>
-                      <td><input type="checkbox" class="familleSelector" data-idFamille="eeeeeee"></td>
+                      <td>{{value.lname|capitalize}}</td>
+                      <td>{{value.family_size}}</td>
+                      <td>{{value.city|capitalize}}</td>
+                      <td>{{value.d_ordure}}</td>
+                      <td>{{value.d_compost}}</td>
+                      <td>{{value.d_tri}}</td>
+                      <td>{{value.d_verre}}</td>
+                      <td><input type="checkbox" class="familleSelector" data-idFamille="{{value.id}}"></td>
                     </tr>
-                    <tr>
-                      <td>Bricole</td>
-                      <td>2</td>
-                      <td>Nimes</td>
-                      <td>34</td>
-                      <td>65</td>
-                      <td>23</td>
-                      <td>34</td>
-                      <td><input type="checkbox" class="familleSelector"  data-idFamille="eeeeeeey"></td>
-                    </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>
@@ -74,7 +66,7 @@
               <i class="fas fa-chart-area"></i>
               Graphique</div>
             <div class="card-body">
-                <select class="form-control" id="dataTypeSelector" name="#dataTypeSelector" data-idFamille="eeeeeeex">
+                <select class="form-control" id="dataTypeSelector" name="#dataTypeSelector" data-idFamille="{{ user.getID }}">
                     <option>Ordures ménagères</option>
                     <option>Compost</option>
                     <option>Tri sélectif</option>
