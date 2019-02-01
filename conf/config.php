@@ -13,6 +13,7 @@ function getDB()
 
     $con = new PDO("mysql:host=$APP_CONF_DB_SERVER;dbname=$APP_CONF_DB_NAME", $APP_CONF_DB_USER, $APP_CONF_DB_PASSWORD);
     $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $con->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
     return $con;
 }
