@@ -67,23 +67,26 @@ $(document).ready(function() {
         }
     }
     });
-    
+    //console.log($("#chartUserID").attr("data-idFamille"));
     //fetch data
     $.ajax({
         url: 'chart_data_api.php',
-        dataType: 'json',
+        //dataType: 'json',
         type: 'post',
-        contentType: 'text/json',
+        //contentType: 'text/json',
         data: {
            channel: ["*ALL*"],//TODO
-           from: [$(".myAreaChart").attr("data-idFamille")]
+           from: [$("#myAreaChart").attr("data-idFamille")]
         },
         success: function( data, textStatus, jQxhr ){
             
             $("").text(data["val"]);
+            
+            console.log(data);
             var i = 0;
             for(var e in data.data){
                 myLineChart.data.datasets[i].data = Object.values(data.data[e][0].data); //get the "e" channel for the first subject (and we requested only one) //IMPORTANT:We only want data as color is fixed on this page
+                //myLineChart.data.datasets[i].backgroundColor = 
                 i++;
             }
             myLineChart.options.scales.yAxes[0].ticks = $.extend(myLineChart.options.scales.yAxes[0].ticks,data.yScaleTicks);

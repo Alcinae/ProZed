@@ -66,6 +66,8 @@ $pageData['pageData'] = $APP_page->pageInfo();
 $pageData['csrf'] = csrf();
 $pageData["menu"] = constructMenu($menu);
 $pageData["breadcrumbs"] = $APP_page->getBreadcrumbs();
+$pageData["today"]["date"] = date('Y-m-d');
+$pageData["today"]["time"] = date('H:i:s');
 
 //INFOBOXES
 $query = getDB()->query("SELECT message, style FROM news WHERE expire >= NOW()");

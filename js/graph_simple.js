@@ -5,10 +5,10 @@ function updateChart(chart, channel, subjects){
            
            $.ajax({
                 url: 'chart_data_api.php',
-                dataType: 'json',
+                //dataType: 'json',
                 type: 'POST',
                 indexValue: [chart, channel, subjects],
-                contentType: 'text/json',
+                //contentType: 'text/json',
                 data: {
                     channel: channel,
                     from: subjects
@@ -16,6 +16,7 @@ function updateChart(chart, channel, subjects){
                 success: function( data, textStatus, jQxhr ){
                     console.log(data);
                     console.log(nameMapping[this.indexValue[1]]);
+                    console.log(this.indexValue[2]);
                     var rawData = data;
                     
                     this.indexValue[0].data.datasets = []; //TODO: check how to properly do this. I don't even know if it works'
@@ -23,15 +24,15 @@ function updateChart(chart, channel, subjects){
                     for(var i = 0; i < this.indexValue[2].length; i++)
                     {
 
-                        this.indexValue[0].data.datasets[i] = rawData.data[nameMapping[this.indexValue[1]]][i];
+                        this.indexValue[0].data.datasets[i] = rawData.data[this.indexValue[1]][i];
                         this.indexValue[0].data.datasets[i].data = Object.values(this.indexValue[0].data.datasets[i].data); //TODO: not sure if values are ordered as intended. Will do for a demo. But should be investigated
-                        console.log(rawData.data[nameMapping[this.indexValue[1]]][i]);
+                        console.log(rawData.data[this.indexValue[1]][i]);
                     }
                     this.indexValue[0].options.scales.yAxes[0].ticks = $.extend(this.indexValue[0].options.scales.yAxes[0].ticks,rawData.yScaleTicks);
                     this.indexValue[0].update();
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
+                    console.log(textStatus);
                 
                     return;
                 }
@@ -101,7 +102,7 @@ lineChart = new Chart(ctx, {
   }
 });
 
-updateChart(lineChart, $("#dataTypeSelector").val(), [$("#dataTypeSelector").attr("data-idFamille"), "*AVERAGE*"]);
+updateChart(lineChart, nameMapping[$("#dataTypeSelector").val()], [$("#dataTypeSelector").attr("data-idFamille"), "*AVERAGE*"]);
 });
 
 $("#dataTypeSelector").on("change", function() {
@@ -109,7 +110,7 @@ $("#dataTypeSelector").on("change", function() {
     console.log("triggered");
     //console.log(lineChart.options.scales.yAxes[0].ticks);
     
-    updateChart(lineChart, [$(this).val()], [$(this).attr("data-idFamille"), "*AVERAGE*"]);
+    updateChart(lineChart, [nameMapping[$(this).val()]], [$(this).attr("data-idFamille"), "*AVERAGE*"]);
     
     /*
     $(".payeLink").attr("href", "#"); //supprime le lien pour ceux qui n'ont pas javascript

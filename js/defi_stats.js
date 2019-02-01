@@ -17,7 +17,7 @@ $(document).ready(function() {
     type: 'line',
     data: {
         labels: ["Novembre", "Décembre", "Janvier", "Février", "Mars", "Avril", "Mai"],
-        datasets: [{
+        datasets: [/*{
         label: "Vous (Kgs/Pers)",
         lineTension: 0.3,
         backgroundColor: "rgba(2,117,216,0.1)",
@@ -56,7 +56,7 @@ $(document).ready(function() {
         pointHitRadius: 50,
         pointBorderWidth: 2,
         //data: [35, 60, 56, 42, 37, 33, 24, 32]
-        }],
+        }*/],
     },
     options: {
         scales: {
@@ -88,7 +88,7 @@ $(document).ready(function() {
     }
     });
 
-    updateChart(lineChart, $("#dataTypeSelector").val(), [$("#dataTypeSelector").attr("data-idFamille"), "*AVERAGE*"]);
+    updateChart(lineChart, nameMapping[$("#dataTypeSelector").val()], [$("#dataTypeSelector").attr("data-idFamille"), "*AVERAGE*"]);
 });
 
 
@@ -97,9 +97,9 @@ function updateChart(chart, channel, subjects){
     console.log("updateChart()");
     $.ajax({
         url: 'chart_data_api.php', //should use session vars to check we are a logged in user. Should return data in the same order as requested
-        dataType: 'json',
+        //dataType: 'json',
         type: 'POST',
-        contentType: 'text/json',
+        //contentType: 'text/json',
         indexValue: [chart, channel, subjects], //pass the variables to the ajax call context
         data: {
             channel: channel,
@@ -109,12 +109,15 @@ function updateChart(chart, channel, subjects){
             console.log("requestSucess");
             var rawData = data;
             console.log(rawData);
+            this.indexValue[0].data.datasets = [];
             for(var i = 0; i < this.indexValue[2].length; i++)
             {
                 console.log("Loop Index: "+i);
                 //console.log(this.indexValue[1]); //NOTE: seems like because we can't have an array in an array, the indexvalue[1] get converted to simple value because there is only one value in the array. this may cause a problem and will probably need to be fixed
-                this.indexValue[0].data.datasets[i].data = Object.values(rawData.data[nameMapping[this.indexValue[1]/*[0]*/]][i]); //FIXME: does not work because data[i] do not exist, we must specify the channel : data["channel"][i]
+                //////this.indexValue[0].data.datasets[i].data = Object.values(rawData.data[this.indexValue[1]][i]); //FIXME: does not work because data[i] do not exist, we must specify the channel : data["channel"][i]
                 //this.indexValue[0].data.datasets[i].label = rawData.label[i];
+                this.indexValue[0].data.datasets[i] = rawData.data[this.indexValue[1]][i];
+                this.indexValue[0].data.datasets[i].data = Object.values(this.indexValue[0].data.datasets[i].data);
                 
             }
             this.indexValue[0].options.scales.yAxes[0].ticks = rawData.yScaleTicks;
@@ -133,8 +136,7 @@ function updateChart(chart, channel, subjects){
 
 }
 
-//$("#dataTypeSelector").on("change", function() {
-$(".familleSelector").on("change", function() {
+var updateCallback = () => {
 
     //console.log("triggered");
     //console.log(lineChart.options.scales.yAxes[0].ticks);
@@ -148,6 +150,11 @@ $(".familleSelector").on("change", function() {
     selected.push("*AVERAGE*"); //special marker, tell the server to compute and return the average
     
     //console.log(selected);
-    updateChart(lineChart, [$("#dataTypeSelector").val()], selected); //this .val contains the current channel, because the selector triggered this event
+    updateChart(lineChart, [nameMapping[$("#dataTypeSelector").val()]], selected); //this .val contains the current channel, because the selector triggered this event
     
-});
+};
+
+$("#dataTypeSelector").on("change", updateCallback);
+$(".familleSelector").on("change", updateCallback);
+
+
