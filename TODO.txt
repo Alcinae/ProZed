@@ -1,0 +1,13 @@
+TODO:
+do the export_data script
+Fix the delay in color picking in chart data api 
+Prevent sending data if the challenge has finished,
+Do the CRON scripts
+Do the geocoding script.
+IMPORTANT: add checks for inputs, I often only used direct output of FILTER_VALDATE_INT, but I sould also check the int are positive !
+Same thing with dates, i did not check they were too far or in the past / etc
+IMPORTANT: do all error messages, because right now nothing happens on error
+IMPORTANT: investigate the graph on index defi and the table in defi not showing the same data... FOUND : I think the order of data in defi is wrong. Verre is ordure for example
+
+Improvement: refill form with sent data when there was an error
+Improvement: autoresize pictures for ateliers/workshops

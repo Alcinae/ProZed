@@ -17,8 +17,8 @@
                 <div class="col-md-6">
                   
                     <select class="form-control" id="roleSelector"  name="roleSelector">
-                        <option>Participant</option>
-                        <option>Référrent</option>
+                        <option value="Participant">Participant</option>
+                        <option value="Ref">Référrent</option>
                         <!--<option>Administrateur</option>-->
                     </select>
                 </div>
@@ -27,14 +27,16 @@
                 </div>
               </div>
               </div> 
-               <!--<input type="hidden" value="" name="ajax" id="ajax" />-->
+               <input type="hidden" value="{{csrf}}" name="csrf" id="csrf" />
               </form>
 
               <div id="linkDisplay">
+              {% if generatedToken is not null %}
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Lien d'inscription pour <mark>UN</mark> participant :</strong> <em><a href="#" >http://MYDOMAIN/register.html?token=eeeeeeeeeeeeeeeeeeeeeeee</a></em>
+                    <strong>Lien d'inscription pour <mark>UN</mark> participant :</strong> <em><a href="{{generatedToken}}" >{{generatedToken}}</a></em>
                 </div>
+              {% endif %}
               </div>  
                 
             </div>
@@ -64,25 +66,17 @@
                     </tr>
                   </thead>
                   <tbody>
+                  {% for value in memberList %}
                     <tr>
-                      <td>Brouille</td>
-                      <td>Nîmes</td>
-                      <!-- <td><a href="#" class="btn btn-info" onClick="showFamily(['1','2','3'], 'Tiger');">3</a></td> -->
-                      <td>3</td>
-                      <td>xxx@xxx.fr</td>
-                      <td>Participant</td>
-                      <td><a href="membre_edit.html?a=edit&id=2&token=eeeeeeee" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                      <a href="membre_delete.html?a=del&id=2&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                      <td>{{value.lname}}</td>
+                      <td>{{value.city}}</td>
+                      <td>{{value.family_size}}</td>
+                      <td>{{value.email}}</td>
+                      <td>{{value.role}}</td>
+                      <td><a href="membre_edit.html?id={{value.id}}&token={{csrf}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                      <a href="admin_membres.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
-                    <tr>
-                      <td>Bricole</td>
-                      <td>Nîmes</td>
-                      <td>4</td>
-                      <td>xxx@xxx.fr</td>
-                      <td>Paricipant</td>
-                      <td><a href="membre_edit.html?id=2&token=eeeeeeee" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                      <a href="membre_delete.html?id=2&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>

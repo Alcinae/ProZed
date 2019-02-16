@@ -50,6 +50,8 @@ $twig = new Twig_Environment($loader, array(
     'cache' => __DIR__.'/cache/views/',
 ));
 
+require_once("custom_global.php");
+
 if(file_exists("controllers/{$APP_page->getController()}.php"))
     include("controllers/{$APP_page->getController()}.php");
 

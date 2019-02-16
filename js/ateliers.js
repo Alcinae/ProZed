@@ -5,13 +5,13 @@ $(document).ready(function() {
         
         $.ajax({
             url: 'ateliers_api.php', //uses session too
-            dataType: 'json',
+            //dataType: 'json',
             type: 'post',
-            contentType: 'text/json',
+            //contentType: 'text/json',
             data: {
                 id: $(this).attr("data-id"),
-                token: $(this).attr("data-token")
-                val: $(this).is(':checked');
+                token: $(this).attr("data-token"),
+                val: $(this).is(':checked')
             },
             success: function( data, textStatus, jQxhr ){
                 $(this).prop('checked', data["val"]);

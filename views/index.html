@@ -4,7 +4,7 @@
             <div class="card-header">
               <i class="fas fa-table"></i>
               Saisie rapide</div>
-              <form>
+              <form method="post" action="defi.html">
             <div class="card-body">
                 
                     <div class="form-row">
@@ -90,8 +90,9 @@
             </div>
             <div class="card-footer small text-muted ">
                 <div class="form-row align-items-center">
-                <div class="col-auto">Saisie pour le </div><div class="col-auto"><input type="date" name="date" value="2018-10-10" max="2019-10-10" min="2018-10-01" class="form-control" placeholder="Poids"></div>.</div>
+                <div class="col-auto">Saisie pour le </div><div class="col-auto"><input type="date" name="date" value="{{today.date}}" max="{{today.date}}" min="{{currentChallenge.start}}" class="form-control" placeholder="Poids"></div>.</div>
             </div>
+             <input type="hidden" name="csrf" value="{{csrf}}">
           </form>
           </div>
         
@@ -111,7 +112,7 @@
               <canvas id="chartArea" width="100%" height="30"></canvas>
             </div>
             <div class="card-footer small text-muted">
-                Mise à jour a xxhxx.
+               <!-- Mise à jour a xxhxx. -->
             </div>
           </div>
           

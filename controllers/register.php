@@ -20,10 +20,10 @@ function pageLogic(){
         if(count($uuid_data) != 1)
         {
             $pageData["error"] = true;
-            $pageData["errorMsg"] = "Veillez suivre le lien d'inscription tel qu'il est ecrit dans le mail.";
+            $pageData["errorMsg"] = "Veuillez suivre le lien d'inscription tel qu'il est ecrit dans le mail.";
         }else{
             
-            $result = $_SESSION["user"]->registerFromPOST();
+            $result = $_SESSION["user"]->registerFromPOST($uuid_data[0]["role"]);
             
             if($result == true){
             

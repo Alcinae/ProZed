@@ -1,4 +1,5 @@
 <?php
+$root_domain = "http://example.com";
 $prefix = "/PI_test";
 
 

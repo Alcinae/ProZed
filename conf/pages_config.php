@@ -21,11 +21,11 @@ $pages = [
     
     "logout" => new Page("logout", "Luluzed - Deconnexion", "logout", "logout", "", []),
     
-    "admin_membres" => new Page("admin_membres", "Luluzed - Administration - Membres", "admin_membres", "admin_membres", "admin", [], ["Tableau de bord" => "index", "Administration" => null, "Membres" => null]),
+    "admin_membres" => new Page("admin_membres", "Luluzed - Administration - Membres", "admin_membres", "admin_membres", "admin", ["admin_membres"], ["Tableau de bord" => "index", "Administration" => null, "Membres" => null]),
     
-    "admin_actu" => new Page("admin_actu", "Luluzed - Administration - Actualites", "admin_actu", "admin_actu", "admin", [], ["Tableau de bord" => "index", "Administration" => null, "Actualites" => null]),
+    "admin_actu" => new Page("admin_actu", "Luluzed - Administration - Actualites", "admin_actu", "admin_actu", "admin", ["admin_actu"], ["Tableau de bord" => "index", "Administration" => null, "Actualites" => null]),
     
-    "admin_ateliers" => new Page("admin_ateliers", "Luluzed - Administration - Ateliers", "admin_ateliers", "admin_ateliers", "admin", [], ["Tableau de bord" => "index", "Administration" => null, "Agenda" => null]),
+    "admin_ateliers" => new Page("admin_ateliers", "Luluzed - Administration - Ateliers", "admin_ateliers", "admin_ateliers", "admin", ["admin_ateliers"], ["Tableau de bord" => "index", "Administration" => null, "Agenda" => null]),
     
     "503" => new Page("503", "Luluzed - Acces refusé", "", "503", "", [])
     ];

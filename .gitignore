@@ -1,4 +1,6 @@
 cache/views/*
 !cache/views/.gitkeep
+userData/workshops/*
+!userData/workshops/.gitkeep
 p1
 .directory

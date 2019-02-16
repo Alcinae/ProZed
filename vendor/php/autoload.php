@@ -31,4 +31,6 @@ spl_autoload_register(function ($class) {
             require($dir.$file);
 });
 
+//Did not figure out how to write a loader for PHPMailer
+
 ?>

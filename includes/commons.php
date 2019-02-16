@@ -19,12 +19,12 @@ function genUUID()
 }
 
 /**
-    If called with an arg return of the given token match, or else return the current token.
+    If called with an arg return if the given token match, or else return the current token.
 */
 function csrf(/* ... */)
 {
     if(func_num_args() > 0)
-        return $_SESSION["csrf_token"] == func_get_arg(0);
+        return $_SESSION["csrf_token"] === func_get_arg(0);
     else
         return $_SESSION["csrf_token"];
 }
@@ -97,6 +97,23 @@ if ( ! function_exists( 'array_key_last' ) ) {
 
         return $key;
     }
+}
+
+function isValidFullTime($time) {
+    return isValidDateTime($time, "H:i:s");
+}
+
+function isValidDateTime($datetime, $format='Y-m-d H:i:s') {
+    $d = DateTime::createFromFormat("$format", "$datetime");
+    return $d && $d->format($format) == $datetime;
+}
+
+function isValidISODate($date) {
+    return isValidDateTime($date, "Y-m-d");
+}
+
+function isValidTime($time) {
+    return isValidDateTime($time, "H:i");
 }
     
 ?>

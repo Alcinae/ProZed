@@ -20,39 +20,27 @@
                     </tr>
                   </thead>
                   <tbody>
+                  {% for value in workshops %}
                     <tr>
-                      <td><img src="images/logo.png" class="img-fluid"/></td>
-                      <td>XX/XX/XXXX</td>
-                      <td>Atelier creation sac</td>
-                      <td>Creation de sac.
+                      <td><img src="{% if value.image is same as("default") %}images/workshop.png{% else %}{{ value.image }}{% endif %}" class="img-fluid"/></td>
+                      <td>{{ value.date|date("d/m/Y")}}</td>
+                      <td>{{ value.name }}</td>
+                      <td>{{ value.details }}
                       
-                      <br><br><strong> Le xx/xx/xxxx de XXhXX a XXhXX. </strong><br>
-                      <em>Lieu: XXXXXXXXX.</em>
+                      <br><br><strong> Le {{ value.date|date("d/m/Y")}} de {{ value.start|date('H:i') }} à {{ value.end|date('H:i') }}. </strong><br>
+                      <em>Lieu: {{ value.place }}.</em>
                       </td>
 
                       <td>
                         <form>
-                            <input type="checkbox" class="subsLink" value="false" data-id="1" data-token="eeeeeeeeee">
+                            <input type="checkbox" class="subsLink" value="{% if value.subscribed %}true{% else %}false{% endif %}" {% if value.subscribed %}checked{% endif %} data-id="{{ value.id }}" data-token="{{ csrf }}">
+                            <!-- Val: {{value.subscribed}} -->
                         </form>
                       </td>
                       
                     </tr>
-                    <tr>
-                      <td><img src="images/logo.png" class="img-fluid" /></td>
-                      <td>XX/XX/XXXX</td>
-                      <td>Atelier creation sac</td>
-                      <td>Creation de sac.
-                      
-                      <br><br><strong> Le xx/xx/xxxx de XXhXX a XXhXX. </strong><br>
-                      <em>Lieu: XXXXXXXXX.</em>
-                      </td>
-                      <td>
-                        <form>
-                            <input type="checkbox" class="subsLink" value="false"  data-id="2" data-token="eeeeeeee">
-                        </form>
-                      </td>
-                    </tr>
-                                       
+                  {% endfor %}
+            
                   </tbody>
                 </table>
               </div>

@@ -9,7 +9,7 @@
        
               <canvas id="myAreaChart" width="100%" height="30" data-idFamille="{{ user.getID }}"></canvas>
             </div>
-            <div class="card-footer small text-muted">Mise a jour de xxhxx.</div>
+            <div class="card-footer small text-muted">Mise a jour de {{today.time|date("H:m")}}.</div>
           </div>
         
                 
@@ -17,7 +17,7 @@
             <div class="card-header">
               <i class="fas fa-table"></i>
               Saisie</div>
-              <form>
+              <form method="post" action="">
             <div class="card-body">
                 
                     <div class="form-row">
@@ -103,8 +103,9 @@
             </div>
             <div class="card-footer small text-muted ">
                 <div class="form-row align-items-center">
-                <div class="col-auto">Saisie pour le </div><div class="col-auto"><input type="date" name="date" value="{{today.date}}" max="{{today.date}}" min="2018-10-01" class="form-control" placeholder="Poids"></div>.</div>
+                <div class="col-auto">Saisie pour le </div><div class="col-auto"><input type="date" name="date" value="{{today.date}}" max="{{today.date}}" min="{{currentChallenge.start|date("Y-m-d")}}" class="form-control" placeholder="Poids"></div>.</div>
             </div>
+            <input type="hidden" name="csrf" value="{{csrf}}">
           </form>
           </div>
         
@@ -129,111 +130,16 @@
                     </tr>
                   </thead>
                   <tbody>
+                  {% for value in challengeEntries %}
                     <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>30</td>
-                      <td>30</td>
-                      <td>30</td>
-                      <td>30</td>
-                      <td><a href="defi.html?del=1&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                      <td>{{value.date|date("d/m/Y")}}</td>
+                      <td>{{value.d_ordure}}</td>
+                      <td>{{value.d_verre}}</td>
+                      <td>{{value.d_tri}}</td>
+                      <td>{{value.d_compost}}</td>
+                      <td><a href="defi.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>40</td>
-                      <td>40</td>
-                      <td>40</td>
-                      <td>40</td>
-                      <td><a href="defi.html?del=2&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>26</td>
-                      <td>26</td>
-                      <td>26</td>
-                      <td>26</td>
-                     <td><a href="defi.html?del=3&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>42</td>
-                      <td>42</td>
-                      <td>42</td>
-                      <td>42</td>
-                      <td><a href="defi.html?del=4&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>34</td>
-                      <td>34</td>
-                      <td>34</td>
-                      <td>34</td>
-                      <td><a href="defi.html?del=5&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>33</td>
-                      <td>33</td>
-                      <td>33</td>
-                      <td>33</td>
-                      <td><a href="defi.html?del=6&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>28</td>
-                      <td>28</td>
-                      <td>28</td>
-                      <td>28</td>
-                     <td><a href="defi.html?del=7&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>31</td>
-                      <td>31</td>
-                      <td>31</td>
-                      <td>31</td>
-                      <td><a href="defi.html?del=8&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>37</td>
-                      <td>37</td>
-                      <td>37</td>
-                      <td>37</td>
-                      <td><a href="defi.html?del=9&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>41</td>
-                      <td>41</td>
-                      <td>41</td>
-                      <td>41</td>
-                      <td><a href="defi.html?del=10&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>38</td>
-                      <td>38</td>
-                      <td>38</td>
-                      <td>38</td>
-                      <td><a href="defi.html?del=12&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>36</td>
-                      <td>36</td>
-                      <td>36</td>
-                      <td>36</td>
-                      <td><a href="defi.html?del=13&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
-                    <tr>
-                      <td>XX/XX/XXXX</td>
-                      <td>35</td>
-                      <td>35</td>
-                      <td>35</td>
-                      <td>35</td>
-                      <td><a href="defi.html?del=14&token=eeeeeeee" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
-                    </tr>
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>
