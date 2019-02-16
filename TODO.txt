@@ -8,6 +8,7 @@ IMPORTANT: add checks for inputs, I often only used direct output of FILTER_VALD
 Same thing with dates, i did not check they were too far or in the past / etc
 IMPORTANT: do all error messages, because right now nothing happens on error
 IMPORTANT: investigate the graph on index defi and the table in defi not showing the same data... FOUND : I think the order of data in defi is wrong. Verre is ordure for example
+IMPORTANT: REMEMBER to clean up ateliers_subscribers when removing a workshop. (This is todo in admin_ateliers.php)
 
 Improvement: refill form with sent data when there was an error
 Improvement: autoresize pictures for ateliers/workshops
