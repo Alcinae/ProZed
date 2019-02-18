@@ -1,3 +1,9 @@
 [submodule "vendor/php/PhpSpreadsheet"]
 	path = vendor/php/PhpSpreadsheet
 	url = https://github.com/PHPOffice/PhpSpreadsheet.git
+[submodule "vendor/php/cron-expression"]
+	path = vendor/php/cron-expression
+	url = https://github.com/mtdowling/cron-expression.git
+[submodule "vendor/php/php-cron-scheduler"]
+	path = vendor/php/php-cron-scheduler
+	url = https://github.com/peppeocchi/php-cron-scheduler.git
