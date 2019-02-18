@@ -7,3 +7,6 @@
 [submodule "vendor/php/php-cron-scheduler"]
 	path = vendor/php/php-cron-scheduler
 	url = https://github.com/peppeocchi/php-cron-scheduler.git
+[submodule "vendor/php/PHPMailer"]
+	path = vendor/php/PHPMailer
+	url = https://github.com/PHPMailer/PHPMailer.git
