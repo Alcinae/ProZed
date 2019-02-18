@@ -75,7 +75,7 @@ if(!$_SESSION["user"]->hasCap("member"))
 $db = getDB();
 
 
-$allowed_channels = ["tri", "verre", "ordure", "compost"];
+$allowed_channels = ["ordure", "tri", "verre", "compost"];
 
 //$_POST["channel"] = ["tri"];
 //$_POST["from"] = [6];

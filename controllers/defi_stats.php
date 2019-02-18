@@ -1,5 +1,5 @@
 <?php
-function pageLogic(){
+function pageLogic($previousData){
     $db = getDB();
     $ret;
     $ret["usersData"] = [];

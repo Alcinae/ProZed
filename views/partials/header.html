@@ -187,6 +187,12 @@
             {% endfor %}
           </ol>
           
+        {% if not currentChallenge.isRunning %}
+            <div class="alert alert-warning">
+                Le défi s'est terminé le {{currentChallenge.end|date("d/m/Y")}}. Le site est en lecture seule. {% if not user.hasCap("admin") %}<br/> Vous conserverez l'accès à ce site jusqu'à fin août. {% else %} <br/> Seuls les administrateurs peuvent voir ceci : <ol> <li>Les comptes utilisateurs seront supprimés le 31 août à minuit.</li> <li>Après cela, vous pourrez de nouveau créer des liens d'inscription et le défi reprendra le 1er novembre.</li></ol> {% endif %}
+            </div>
+        {% endif %}
+          
         {% for value in infos %}
             <div class="alert {{ value.style }} alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>

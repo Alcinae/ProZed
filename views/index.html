@@ -1,5 +1,5 @@
   {{ include('partials/header.html') }} 
-    
+{% if currentChallenge.isRunning %}
  <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
@@ -95,7 +95,7 @@
              <input type="hidden" name="csrf" value="{{csrf}}">
           </form>
           </div>
-        
+{% endif %}        
           
           <!-- Area Chart Example-->
           <div class="card mb-3">

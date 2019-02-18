@@ -1,5 +1,5 @@
 <?php
-function pageLogic(){
+function pageLogic($previousData){
 
     if(!empty($_POST)){
         if(isset($_POST["idStr"]) && isset($_POST["password"]))

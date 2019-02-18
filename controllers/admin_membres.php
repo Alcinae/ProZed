@@ -1,13 +1,14 @@
 <?php
-function pageLogic(){
+function pageLogic($previousData){
     $ret = [];
     
     global $root_domain, $prefix;
     
     $db = getDB();
     
+    $canRegister = new DateTime($previousData["currentChallenge"]["end"]) > new DateTime("now");
     
-    if(isset($_POST["csrf"]) && isset($_POST["roleSelector"])){
+    if(isset($_POST["csrf"]) && isset($_POST["roleSelector"]) && $canRegister){
         if(csrf($_POST["csrf"])){
             $genToken = genUUID();
             $queryRlt = $db->prepare("INSERT INTO register_token(uuid, role, date) VALUES(:uuid, :role, NOW());");
@@ -38,6 +39,8 @@ function pageLogic(){
     $queryObj = $db->query("SELECT id, lname, city, family_size, email, role FROM members ORDER BY register_date DESC");
     
     $ret["memberList"] = $queryObj->fetchAll();
+    
+    $ret["canRegister"] = $canRegister;
     
     return $ret;
 }

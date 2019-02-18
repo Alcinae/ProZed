@@ -1,9 +1,5 @@
 <?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-    require 'vendor/php/PHPMailer/src/Exception.php';
-    require 'vendor/php/PHPMailer/src/PHPMailer.php';
-    require 'vendor/php/PHPMailer/src/SMTP.php';
+    require("vendor/php/autoload.php");
     
     
     function getMailer(){

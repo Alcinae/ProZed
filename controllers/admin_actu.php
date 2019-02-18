@@ -2,8 +2,9 @@
 
 require("conf/mail.php");
 
+global $twig, $root_domain, $prefix;
 
-    function pageLogic(){ //remember, only admins can access this page, index.php takes care of that (if configured to, as it is here)
+    function pageLogic($previousData){ //remember, only admins can access this page, index.php takes care of that (if configured to, as it is here)
         $ret = [];
         $db = getDB();
         
@@ -51,20 +52,27 @@ require("conf/mail.php");
                     try {
                         $mail = getMailer();
                         $adminsQuery = $db->query("SELECT email, fname, lname FROM members WHERE admin = TRUE AND consent_mail = TRUE;");
-                        foreach($adminsQuery->fetchAll() as $itm)
-                        {
-                            $mail->addReplyTo($itm["email"], $itm["fname"]." ".strtoupper($itm["lname"]));
-                        }
+                        $adminsMails = $adminsQuery->fetchAll();
+
                         
                         //Content
                         $mail->isHTML(true);                                  // Set email format to HTML
-                        $mail->Subject = 'Luluzed: '.$post_data["message"];
-                        $mail->Body    = $post_data["message"]; //TODO HTML body 
+                        $mail->Subject = 'Luluzed: Vous avez reçu un message.';
+                        
+                        $contentData["message"] = $post_data["message"];
+                        $contentData["url"] = "$root_domain$prefix/index.html";
+                        $contentData["unsubscribeUrl"] = "$root_domain$prefix/membre_edit.html";
+                        
+                        $mail->Body    = $twig->render("email/template_notice.html", $contentData); //TODO HTML body 
                         $mail->AltBody = 'Vous avez reçu une notification :  '.$post_data["message"];
 
                         $membersQuery = $db->query("SELECT email FROM members WHERE consent_mail = TRUE;");
                         foreach($membersQuery->fetchAll() as $itm)
                         {
+                            foreach($adminsMails as $itm)
+                            {
+                                $mail->addReplyTo($itm["email"], $itm["fname"]." ".strtoupper($itm["lname"]));
+                            }
                             $mail->addAddress($itm["email"]);
                             $mail->send();
                             $mail->clearAdresses();

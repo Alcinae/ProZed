@@ -1,5 +1,5 @@
 <?php
-function pageLogic(){
+function pageLogic($previousData){
     $ret = [];
     
     $uploadFolder = "./userData/workshops/";
@@ -113,14 +113,14 @@ function pageLogic(){
             {
                 $id = filter_var($_GET["del"], FILTER_VALIDATE_INT);
                 
-                $infoQuery = $db->prepare("SELECT image FROM ateliers WHERE id = :id");
+                $infoQuery = $db->prepare("SELECT image FROM ateliers WHERE id = :id;");
                 $infoQuery->bindValue(":id", $id);
                 $infoQuery->execute();
                 $image = $infoQuery->fetch();
                 
 
                 
-                $delQuery = $db->prepare("DELETE FROM ateliers WHERE id = :id");
+                $delQuery = $db->prepare("DELETE ateliers, ateliers_subscribers FROM ateliers LEFT JOIN ateliers_subscribers ON ateliers_subscribers.event = ateliers.id WHERE ateliersid = :id;");
                 $delQuery->bindValue(":id", $id);
                 $delQuery->execute();
                 

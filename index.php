@@ -10,7 +10,11 @@ session_start();
 genCSRF();
 
 
-global $pages, $menu; //from the pages_config file
+global $pages, $menu, $isCronEnabled; //from the pages_config file
+
+if(!$isCronEnabled){ //if cron scripts have not been set up. run them on each visit, it is better than nothing. TODO: check if the library behave correctly when not invoked at precisely one minute intervals. I'm prettu sure this is a bad idea and it won't work.
+    require("crons.php");
+}
 
 if(!isset($_SESSION["user"]))
     $_SESSION["user"] = new User();
@@ -50,16 +54,19 @@ $twig = new Twig_Environment($loader, array(
     'cache' => __DIR__.'/cache/views/',
 ));
 
-require_once("custom_global.php");
+$pageData = [];
+
+if(file_exists("custom_global.php"))
+    require_once("custom_global.php");
 
 if(file_exists("controllers/{$APP_page->getController()}.php"))
     include("controllers/{$APP_page->getController()}.php");
 
-$pageData = [];
+
 if(function_exists("pageLogic")){
-    $tmp = pageLogic();
+    $tmp = pageLogic($pageData);
     if(is_array($tmp))
-        $pageData = array_merge($tmp, $pageData);
+        $pageData = array_merge_recursive($tmp, $pageData);
 }else{
     
 }

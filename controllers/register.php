@@ -1,6 +1,6 @@
 <?php
 
-function pageLogic(){
+function pageLogic($previousData){
     if($_SESSION["user"]->isInitialized())
     {
         header("Location: index.html");

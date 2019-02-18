@@ -1,8 +1,9 @@
  <?php
 if(!$_SESSION["user"]->isInitialized())
     header("Location: login.html");
-
-function pageLogic(){
+//this is now done in custom_global.php
+/*
+function pageLogic($previousData){
     $ret = [];
     
     
@@ -15,4 +16,5 @@ function pageLogic(){
     
     return $ret;
 }
+*/
 ?>

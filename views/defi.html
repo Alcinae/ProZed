@@ -12,7 +12,7 @@
             <div class="card-footer small text-muted">Mise a jour de {{today.time|date("H:m")}}.</div>
           </div>
         
-                
+          {% if currentChallenge.isRunning %}      
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
@@ -109,6 +109,38 @@
           </form>
           </div>
         
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-chart-area"></i>
+              Saisie de jours d'absence</div>
+            <div class="card-body">
+               <form method="post" action="">
+               <div class="form-row">
+                    <label for="abs">Jours d'absence ce mois-ci</label>
+               </div>
+                <div class="form-row">
+                        <div class="col-auto">
+                       
+                            <div class="input-group mb-2">
+                                
+                                
+                                
+                                <input type="number" name="abs" min="0" max="31" value="{{currentAbs}}" class="form-control" id="abs" placeholder="Absences">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Jours</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input type="submit" class="form-control" value="Envoyer">
+                            <input type="hidden" name="csrf" value="{{csrf}}">
+                        </div>
+                </div>
+               </form>
+            </div>
+          </div>
+        
         
           <div class="card mb-3">
             <div class="card-header">
@@ -153,7 +185,7 @@
             -->
           </form>
           </div>
-          
+ {% endif %}         
 
 
 

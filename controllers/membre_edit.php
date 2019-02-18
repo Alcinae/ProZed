@@ -1,6 +1,6 @@
 <?php
 
-function pageLogic(){
+function pageLogic($previousData){
     $ret = [];
     
     $db = getDB();
