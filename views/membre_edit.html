@@ -5,9 +5,8 @@
             <div class="card-header">
               <i class="fas fa-table"></i>
               Informations {% if other_edit %}de la famille {{values.lname}}{% else %}personelles{% endif %}</div>
-              <form>
+              <form method="post" action="">
             <div class="card-body">
-       <form method="post" action="">
           <div class="form-group">
             <div class="form-row">
             
@@ -53,6 +52,7 @@
                 <label for="inputEmail">Adresse Email</label>
               </div>
             </div>
+            {% if not admin %}
             <div class="form-group">
                
                 
@@ -62,6 +62,7 @@
                  
                 </div>
                 </div>
+            {% endif %}
             <div class="form-group">
               <div class="form-row">
                 <div class="col-md-6">

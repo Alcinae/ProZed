@@ -120,7 +120,7 @@ function pageLogic($previousData){
                 
 
                 
-                $delQuery = $db->prepare("DELETE ateliers, ateliers_subscribers FROM ateliers LEFT JOIN ateliers_subscribers ON ateliers_subscribers.event = ateliers.id WHERE ateliersid = :id;");
+                $delQuery = $db->prepare("DELETE ateliers, ateliers_subscribers FROM ateliers LEFT JOIN ateliers_subscribers ON ateliers_subscribers.event = ateliers.id WHERE ateliers.id = :id;");
                 $delQuery->bindValue(":id", $id);
                 $delQuery->execute();
                 

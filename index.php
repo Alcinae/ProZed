@@ -79,7 +79,7 @@ $pageData["today"]["date"] = date('Y-m-d');
 $pageData["today"]["time"] = date('H:i:s');
 
 //INFOBOXES
-$query = getDB()->query("SELECT message, style FROM news WHERE expire >= NOW()");
+$query = getDB()->query("SELECT message, style FROM news WHERE expire IS NULL OR expire >= NOW()");
 $pageData['infos'] = $query->fetchAll();
 
 /*

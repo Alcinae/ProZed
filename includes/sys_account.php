@@ -7,18 +7,22 @@ class User {
     private $caps = ["" => true];
     private $prefs = [];
     private $initialized = false;
+    private $role = "";
     
-    /*
-    public function __construct(){
+    //public function __construct(){
+    //echo "4.";
+    //}
     
-    }
-    */
     
     public function getID(){
         return $this->id;
     }
     public function getFName(){
         return $this->fname;
+    }
+    
+    public function getRole(){
+        return $this->role;
     }
     public function getLName(){
         return $this->lname;
@@ -66,8 +70,8 @@ class User {
     }
     
     public function reloadData(){
-        if(initialized)
-            return loadData($this->id);
+        if($this->initialized)
+            return $this->loadData($this->id);
         else
             return false;
     }
@@ -89,6 +93,7 @@ class User {
         $this->lname = $data["lname"];
         $this->caps["admin"] = (bool) $data["admin"];
         $this->caps[$data["role"]] = true;
+        $this->role = $data["role"];
         $this->caps["member"] = true;
         $this->email = $data["email"];
         
@@ -103,10 +108,11 @@ class User {
     /**
         This function is used to parse/validate/store POST data from forms. IF the user is already logged in, it updates the data.
     **/
-    public function registerFromPOST($role = ""){
+    public function registerFromPOST($role = "", $checkOldPassword = true){
+        //echo "3.";
         $update = $this->initialized; //If we are already registered, we only want to update the data
         $db = getDB();
-        
+        //var_dump($update);
 
         //all POST fields to validate
         $args = [
@@ -123,15 +129,15 @@ class User {
             "password" => FILTER_SANITIZE_STRING,
             "password2" => FILTER_SANITIZE_STRING,
             "consent_email" => FILTER_VALIDATE_BOOLEAN,
-            "consent_map" => FILTER_VALIDATE_BOOLEAN,
-            "role" => FILTER_DEFAULT 
+            "consent_map" => FILTER_VALIDATE_BOOLEAN/*,
+            "role" => FILTER_DEFAULT */
             ];
 
         //required fields and their error message
-        $required = ["fname" => "Prénom invalide ou vide !","lname" => "Nom invalide ou vide !","email" => "Adresse email invalide.","city" => "Ville invalide.","family_size" => "Nombre de personnes dans la famille invalide.","password" => "Mot de passe invalide.","password2" => "Mot de passe de vérification invalide."];
+        $required = ["fname" => "Prénom invalide ou vide !","lname" => "Nom invalide ou vide !","email" => "Adresse email invalide.","city" => "Ville invalide.","family_size" => "Nombre de personnes dans la famille invalide.","password" => "Mot de passe invalide."/*,"password2" => "Mot de passe de vérification invalide."*/];
         
         
-        if($update){ //add the new fields if the form was an update form
+        if($update && $checkOldPassword){ //add the new fields if the form was an update form
             $args["oldPassword"] = FILTER_SANITIZE_STRING;
             $required["oldPassword"] = "Vous devez entrer votre mot de passe actuel !"; 
         }
@@ -159,8 +165,8 @@ class User {
                     return gen_error("", $required[$key]);
             }
         }
-        
-        if($update) 
+        //var_dump($checkOldPassword);
+        if($update && $checkOldPassword) 
         { //check if old password is good
         
             $query = $db->prepare("SELECT id, password FROM members WHERE email=:email");
@@ -189,11 +195,17 @@ class User {
         unset($inputs["password2"]);
             
             //CHECKING if user already exists
-        $query = $db->prepare("SELECT id FROM members WHERE email=:email");
+        $query = $db->prepare("SELECT id FROM members WHERE email=:email AND id != :id"); //TODO fix the case where we change the email address
+
         $query->bindValue(":email", $inputs["email"]);
+        
+        
+        $query->bindValue(":id", ($update) ? $this->getID() : null);
+        
         $query->execute();
         $data = $query->fetchAll();
-        if((!$update && count($data) != 0) || ($update && $data[0]["id"] != $this->id))  //Does the email exist already, if yes, is it the same person and we are just updating it ?
+        //var_dump($data);
+        if((/*!$update && */count($data) != 0) /*|| ($update && $data[0]["id"] != $this->id)*/)  //Does the email exist already, if yes, is it the same person and we are just updating it ?
         {
         //}elseif(count($data) != 0)
             return gen_error("", "Cette adresse email est deja utilisee.");
@@ -230,7 +242,7 @@ class User {
             $queryCmd .= "WHERE id = :id;"; // will use current stored id (in this class) because it won't change
             $inputs["id"] = $this->id;
             
-            str_replace(", WHERE", " WHERE", $queryCmd); //properly terminate list in the query
+            $queryCmd = str_replace(", WHERE", " WHERE", $queryCmd); //properly terminate list in the query
             
         }else{
         
@@ -253,7 +265,7 @@ class User {
             
         }
         
-        
+        //var_dump($queryCmd);
         $query = $db->prepare($queryCmd);
         foreach($inputs as $key => $value){
             $query->bindValue(":{$key}", $value);
@@ -280,6 +292,7 @@ class User {
     }
     
     public function setAdmin($yn){
+        $db = getDB();
         $query = $db->prepare("UPDATE members SET admin = ? WHERE id = ?");
         $query->execute([$yn, $this->id]);//TODO check if successful
         return $this->reloadData();

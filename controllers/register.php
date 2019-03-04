@@ -22,11 +22,11 @@ function pageLogic($previousData){
             $pageData["error"] = true;
             $pageData["errorMsg"] = "Veuillez suivre le lien d'inscription tel qu'il est ecrit dans le mail.";
         }else{
-            
+            //echo "1.";
             $result = $_SESSION["user"]->registerFromPOST($uuid_data[0]["role"]);
             
             if($result == true){
-            
+                //echo "2.";
                 $query = $db->prepare("DELETE FROM register_token WHERE uuid = ?");
                 $query->execute([$uuid_data[0]["uuid"]]);
                 
@@ -45,6 +45,8 @@ function pageLogic($previousData){
     }else{
     
     }
+    $pageData["tokenExists"] = isset($_GET["token"]);
+    
     return $pageData;
 }
 ?>

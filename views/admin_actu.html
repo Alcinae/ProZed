@@ -23,7 +23,11 @@
                   {% for value in newsList %}
                     <tr>
                       <td><div class="alert {{ value.style }}">{{value.message}}</div></td>
-                      <td>{{value.expire|date('d/m/Y h:i')}}</td>
+                      {% if value.expire is not null %}
+                        <td>{{value.expire|date('d/m/Y h:i')}}</td>
+                      {% else %}
+                        <td><em>Aucune</em></td>
+                      {% endif %}
                       <td><a href="admin_actu.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
                    {% endfor %}

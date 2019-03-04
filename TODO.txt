@@ -7,7 +7,11 @@ Do the geocoding script.
 IMPORTANT: add checks for inputs, I often only used direct output of FILTER_VALDATE_INT, but I sould also check the int are positive !
 Same thing with dates, i did not check they were too far or in the past / etc
 IMPORTANT: do all error messages, because right now nothing happens on error
+IMPORTANT: code the remmember me part of sys_account
 
+IMPORTANT cleanup abscences table periodically
+
+todo: clean up  challenge after a memebr is deleted
 IMPORTANT: check the ultraMutlitaskingQuery of the holiday system's cron script.
 
 Improvement: refill form with sent data when there was an error

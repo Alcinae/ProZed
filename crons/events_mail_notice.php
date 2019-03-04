@@ -36,7 +36,7 @@ foreach($result as $mailEntry){
                             //Content
                             $mail->isHTML(true);  // Set email format to HTML
                             $mail->Subject = 'Atelier Luluzed: '.$contentData["name"];
-                            $mail->Body    = $twig->render("email/template_events.html", $contentData); //TODO: make the html email template
+                            $mail->Body    = $twig->render("email/template_events.html", $contentData); 
                             $mail->AltBody = 'Bonjour '.$contentData["fname"]." ".$contentData["lname"].'! L\'évènement "'.$contentData["name"].'" se déroule dans '.$contentData["in_d"].' jour(s). Rendez-vous sur l\'application pour plus d\'informations ! ';
 
                             $membersQuery = $db->query("SELECT email FROM members WHERE consent_mail = TRUE;");
