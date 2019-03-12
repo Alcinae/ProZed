@@ -72,7 +72,7 @@
                       <td>{{value.city}}</td>
                       <td>{{value.family_size}}</td>
                       <td>{{value.email}}</td>
-                      <td>{{value.role}}</td>
+                      <td>{{roleMapping[value.role]}}</td>
                       <td><a href="membre_edit.html?id={{value.id}}&token={{csrf}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                       <a href="admin_membres.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
                     </tr>

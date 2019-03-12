@@ -13,7 +13,7 @@ $pages = [
     
     "membre_edit" => new Page("membre_edit", "Luluzed - Info membre", "membre_edit", "membre_edit", "member", [], ["Tableau de bord" => "index", "Espace membres" => null]),
     
-    "defi" => new Page("defi", "Luluzed - Mon defi", "defi", "defi", "member", ["defi"], ["Tableau de bord" => "index", "Mon Defi" => null]),
+    "defi" => new Page("defi", "Luluzed - Mon defi", "defi", "defi", "Participant", ["defi"], ["Tableau de bord" => "index", "Mon Defi" => null]),
     
     "ateliers" => new Page("ateliers", "Luluzed - Agenda", "ateliers", "ateliers", "member", ["ateliers"], ["Tableau de bord" => "index", "Agenda" => null]),
     

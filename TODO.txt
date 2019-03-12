@@ -3,16 +3,21 @@ do the export_data script
 Fix the delay in color picking in chart data api 
 test the HTML email templates
 Test the crons scripts
-Do the geocoding script.
+Display the registered locations.
 IMPORTANT: add checks for inputs, I often only used direct output of FILTER_VALDATE_INT, but I sould also check the int are positive !
 Same thing with dates, i did not check they were too far or in the past / etc
 IMPORTANT: do all error messages, because right now nothing happens on error
 IMPORTANT: code the remmember me part of sys_account
 
+IMPORTANT: Fix bugs. See the paper/note.
+
 IMPORTANT cleanup abscences table periodically
 
 todo: clean up  challenge after a memebr is deleted
 IMPORTANT: check the ultraMutlitaskingQuery of the holiday system's cron script.
+
+TODO: VERY IMPORTANT sanitize inputs.
+
 
 Improvement: refill form with sent data when there was an error
 Improvement: autoresize pictures for ateliers/workshops

@@ -2,9 +2,6 @@
 $root_domain = "http://example.com";
 $prefix = "/PI_test";
 
-$_GLOBAL["root_domain"] = $root_domain;
-$_GLOBAL["prefix"] = $prefix;
-
 //Its is strongly discouraged to not setup cron. You only need to setup a cron task running /crons.php every minute.
 //Setting this to false is unsupported and may cause unpredictable behavior
 $isCronEnabled = true;

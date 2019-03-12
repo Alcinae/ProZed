@@ -39,11 +39,11 @@
                       <td>{{value.lname|capitalize}}</td>
                       <td>{{value.family_size}}</td>
                       <td>{{value.city|capitalize}}</td>
-                      <td>{{value.d_ordure}}</td>
-                      <td>{{value.d_compost}}</td>
-                      <td>{{value.d_tri}}</td>
-                      <td>{{value.d_verre}}</td>
-                      <td><input type="checkbox" class="familleSelector" data-idFamille="{{value.id}}"></td>
+                      <td>{{value.d_ordure|round(1, 'floor')}}</td>
+                      <td>{{value.d_compost|round(1, 'floor')}}</td>
+                      <td>{{value.d_tri|round(1, 'floor')}}</td>
+                      <td>{{value.d_verre|round(1, 'floor')}}</td>
+                      <td>{% if value.id != user.getID %}<input type="checkbox" class="familleSelector" data-idFamille="{{value.id}}">{% endif %}</td>
                     </tr>
                   {% endfor %}
                   </tbody>

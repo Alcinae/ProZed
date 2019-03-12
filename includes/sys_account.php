@@ -1,4 +1,6 @@
 <?php
+require_once("includes/api_geocoding_OSMnominatim.php");
+
 class User {
     private $id = "-1";
     private $fname = "Anonymous";
@@ -109,27 +111,23 @@ class User {
         This function is used to parse/validate/store POST data from forms. IF the user is already logged in, it updates the data.
     **/
     public function registerFromPOST($role = "", $checkOldPassword = true){
-        //echo "3.";
+        
         $update = $this->initialized; //If we are already registered, we only want to update the data
         $db = getDB();
         //var_dump($update);
 
         //all POST fields to validate
         $args = [
-            "fname" => array("filter" => FILTER_VALIDATE_REGEXP,
-                            "options" => array("regexp" => "/^[\p{L}'][ \p{L}'-]*[\p{L}]$/u")),
-            "lname" => array("filter" => FILTER_VALIDATE_REGEXP,
-                            "options" => array("regexp" => "/^[\p{L}'][ \p{L}'-]*[\p{L}]$/u")),
+            "fname" => FILTER_SANITIZE_STRING,
+            "lname" => FILTER_SANITIZE_STRING,
             "email" => FILTER_VALIDATE_EMAIL,
-            "city" => array("filter" => FILTER_VALIDATE_REGEXP,
-                            "options" => array("regexp" => "/^[\p{L}'][ \p{L}'-]*[\p{L}]$/u")),
-            "address" => array("filter" => FILTER_VALIDATE_REGEXP,
-                            "options" => array("regexp" => "/^[\p{L}'][ \p{L}'-]*[\p{L}]$/u")),
-            "family_size" => FILTER_VALIDATE_INT,
+            "city" => FILTER_SANITIZE_STRING,
+            "address" => FILTER_SANITIZE_STRING, //FILTER_NULL_ON_FAILURE
+            "family_size" => array("filter" => FILTER_VALIDATE_INT, "options" => array("default" => 1, "min_range" => 1)),
             "password" => FILTER_SANITIZE_STRING,
             "password2" => FILTER_SANITIZE_STRING,
-            "consent_email" => FILTER_VALIDATE_BOOLEAN,
-            "consent_map" => FILTER_VALIDATE_BOOLEAN/*,
+            "consent_email" => array("filter" => FILTER_VALIDATE_BOOLEAN, "flags" => FILTER_NULL_ON_FAILURE),
+            "consent_map" => array("filter" => FILTER_VALIDATE_BOOLEAN, "flags" => FILTER_NULL_ON_FAILURE)/*,
             "role" => FILTER_DEFAULT */
             ];
 
@@ -165,6 +163,7 @@ class User {
                     return gen_error("", $required[$key]);
             }
         }
+        
         //var_dump($checkOldPassword);
         if($update && $checkOldPassword) 
         { //check if old password is good
@@ -174,9 +173,10 @@ class User {
             //$query->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
             $query->execute();
             $data = $query->fetch();
-            if(!password_verify($password, $inputs["oldPassword"]))
+            if(!password_verify($inputs["oldPassword"], $data["password"]))
                 return gen_error("","Erreur: Mot de passe incorrect.");
         }
+        
         
         //for checkboxes...
         /*
@@ -195,7 +195,7 @@ class User {
         unset($inputs["password2"]);
             
             //CHECKING if user already exists
-        $query = $db->prepare("SELECT id FROM members WHERE email=:email AND id != :id"); //TODO fix the case where we change the email address
+        $query = $db->prepare("SELECT id FROM members WHERE email=:email AND id != :id"); 
 
         $query->bindValue(":email", $inputs["email"]);
         
@@ -210,7 +210,7 @@ class User {
         //}elseif(count($data) != 0)
             return gen_error("", "Cette adresse email est deja utilisee.");
         }
-            
+           
         unset($query);
         unset($data);
 
@@ -272,12 +272,41 @@ class User {
         }
             
         $result = $query->execute();
+        
+        
+        ////////
+        
+        $id = -1;
+        if($update)
+            $id = $this->getID();
+        else
+        {
+            $idQuery = $db->prepare("SELECT id FROM members WHERE members.email = :email;");
+            $idQuery->bindValue(":email", $inputs["email"]);
+                
+            $id = $idQuery->fetch()["id"];
+        }
+        
+        if($inputs["consent_map"]){
+            $coord = geocode($inputs["address"].", ".$inputs["city"].", France");
+            
+            $locationQuery = $db->prepare("INSERT INTO locations (latitude, longitude, member) VALUES(:lat, :long, :member) ON DUPLICATE KEY UPDATE latitude=:lat2, longitude=:long2;");
+            
+            $locationQuery->bindValue(":lat", $coord[0]);
+            $locationQuery->bindValue(":long", $coord[1]);
+            $locationQuery->bindValue(":member", $id);
+            $locationQuery->bindValue(":lat2", $coord[0]);
+            $locationQuery->bindValue(":long2", $coord[1]);
+            
+            $locationQuery->execute();
+        
+        }else{
+            $locationQuery = $db->prepare("DELETE FROM locations WHERE members = ?;");
+            $locationQuery->execute([$id]);
+        }
+        
+        
         unset($query);
-        
-
-        
-
-        
         //return true;
         return $result;
     }

@@ -3,6 +3,11 @@
         <div class="card-header">S'inscrire</div>
         <div class="card-body">
         <h1 class="text-center">Espace réservé aux familles du défi</h1>
+        {% if error %}
+            <div class="alert alert-danger">
+               {{errorMsg}}
+            </div>
+        {% endif %}
         {% if tokenExists %}
           <form method="post" action="">
           <div class="form-group">

@@ -24,7 +24,7 @@
                     <tr>
                       <td><div class="alert {{ value.style }}">{{value.message}}</div></td>
                       {% if value.expire is not null %}
-                        <td>{{value.expire|date('d/m/Y h:i')}}</td>
+                        <td data-order="{{value.date|date("Y/m/d h:i")}}">{{value.expire|date('d/m/Y h:i')}}</td>
                       {% else %}
                         <td><em>Aucune</em></td>
                       {% endif %}

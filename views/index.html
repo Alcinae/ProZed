@@ -1,10 +1,11 @@
   {{ include('partials/header.html') }} 
-{% if currentChallenge.isRunning %}
+  {% if user.hasCap('Participant') %}
+{% if currentChallenge.isRunning %}  
  <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
               Saisie rapide</div>
-              <form method="post" action="defi.html">
+              <form method="post" action="">
             <div class="card-body">
                 
                     <div class="form-row">
@@ -96,7 +97,7 @@
           </form>
           </div>
 {% endif %}        
-          
+
           <!-- Area Chart Example-->
           <div class="card mb-3">
             <div class="card-header">
@@ -115,7 +116,7 @@
                <!-- Mise à jour a xxhxx. -->
             </div>
           </div>
-          
+          {% endif %}
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-map-marked-alt"></i>

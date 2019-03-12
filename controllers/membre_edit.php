@@ -7,7 +7,7 @@ function pageLogic($previousData){
     if(isset($_POST["csrf"])) //check only one field, but should be enough to know if form was submitted
     {
         if(csrf($_POST["csrf"])){
-            if($_POST["id"] === $_SESSION["user"]->getID()) //TODO check user old password
+            if($_POST["id"] == $_SESSION["user"]->getID()) //TODO check user old password
             {
                 
                 $_SESSION["user"]->registerFromPOST();

@@ -13,7 +13,7 @@
                   <thead>
                     <tr>
                       <th>Image</th>
-                      <th>Date</th>
+                      <!--<th>Date</th>-->
                       <th>Nom</th>
                       <th>Description</th>
                       <th class="hide-this"></th>
@@ -23,9 +23,9 @@
                   {% for value in workshops %}
                     <tr>
                       <td><img src="{% if value.image is same as("default") %}images/workshop.png{% else %}{{ value.image }}{% endif %}" class="img-fluid"/></td>
-                      <td>{{ value.date|date("d/m/Y")}}</td>
+                      <!--<td data-order="{{value.date|date("Y/m/d")}}">{{ value.date|date("d/m/Y")}}</td> -->
                       <td>{{ value.name }}</td>
-                      <td>{{ value.details }}
+                      <td data-order="{{value.date|date("Y/m/d")}}">{{ value.details }}
                       
                       <br><br><strong> Le {{ value.date|date("d/m/Y")}} de {{ value.start|date('H:i') }} à {{ value.end|date('H:i') }}. </strong><br>
                       <em>Lieu: {{ value.place }}.</em>

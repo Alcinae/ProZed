@@ -1,5 +1,22 @@
 <?php
 
+function url_get_contents ($Url, $userAgent = "") {
+    if (!function_exists('curl_init')){ 
+        die('CURL is not installed!');
+    }
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $Url);
+    if(!empty($userAgent)){
+        curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+    }
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    return $output;
+}
+
+
+
 function sanitize_input($input){
     return htmlspecialchars(stripslashes(trim($input)));
 }

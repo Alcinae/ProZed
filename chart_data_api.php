@@ -242,6 +242,10 @@ if(isset($_POST["channel"]) && isset($_POST["from"]))
                             $data_out["data"][$currentChannel][$index]["pointBackgroundColor"] = "rgba({$bgColorRgb["red"]},{$bgColorRgb["green"]},{$bgColorRgb["blue"]},0.05)";
                             $data_out["data"][$currentChannel][$index]["pointBorderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
                             
+                            for($i = 0; $i < count($month_remap); $i++){
+                                $data_out["data"][$currentChannel][$index]["data"][$i] = null;
+                            }
+                            
                             
                         }
                         $data_out["data"][$currentChannel][$index]["label"] = "Famille ".$dataElm["lname"]." (Kgs/P)";
@@ -296,6 +300,11 @@ if(isset($_POST["channel"]) && isset($_POST["from"]))
                                 $data_out["data"][$currentChannel][$index]["borderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
                                 $data_out["data"][$currentChannel][$index]["pointBackgroundColor"] = "rgba({$bgColorRgb["red"]},{$bgColorRgb["green"]},{$bgColorRgb["blue"]},0.05)";
                                 $data_out["data"][$currentChannel][$index]["pointBorderColor"] = "rgba({$lineColorRgb["red"]},{$lineColorRgb["green"]},{$lineColorRgb["blue"]},1)";
+                                
+                                for($i = 0; $i < count($month_remap); $i++){
+                                    $data_out["data"][$currentChannel][$index]["data"][$i] = null;
+                                }
+                                
                             }
                             $data_out["data"][$currentChannel][$index]["label"] = "Moyenne $currentChannel (Kgs/P)";
                             $data_out["data"][$currentChannel][$index]["data"][(int) $month_remap[$dataElm["month"]]] = (float) $dataElm[$currentChannel];

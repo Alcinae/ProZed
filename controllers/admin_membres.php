@@ -1,8 +1,13 @@
 <?php
+
+include("conf/account_config.php");
+
+
 function pageLogic($previousData){
     $ret = [];
     
-    global $root_domain, $prefix;
+    
+    global $root_domain, $prefix, $roles_names;
     
     $db = getDB();
     
@@ -10,13 +15,13 @@ function pageLogic($previousData){
     
     if(isset($_POST["csrf"]) && isset($_POST["roleSelector"]) && $canRegister){
         if(csrf($_POST["csrf"])){
-            $genToken = genUUID();
+            $genToken = preg_replace("/[^A-Za-z0-9 ]/", '', base64_encode(random_bytes(10)));
             $queryRlt = $db->prepare("INSERT INTO register_token(uuid, role, date) VALUES(:uuid, :role, NOW());");
             $queryRlt->bindValue(":uuid", $genToken);
             $queryRlt->bindValue(":role", $_POST["roleSelector"]);
-            
+            $displayToken = urlencode($genToken);
             if($queryRlt->execute()){
-                $ret["generatedToken"] = "$root_domain$prefix/register.html?token=$genToken";
+                $ret["generatedToken"] = "$root_domain$prefix/register.html?token=$displayToken";
             }else{
             
             }
@@ -41,6 +46,8 @@ function pageLogic($previousData){
     $ret["memberList"] = $queryObj->fetchAll();
     
     $ret["canRegister"] = $canRegister;
+    
+    $ret["roleMapping"] = $roles_names;
     
     return $ret;
 }

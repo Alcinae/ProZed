@@ -11,11 +11,9 @@ function pageLogic($previousData){
     {
         $db = getDB();
         $query = $db->prepare("SELECT uuid,role FROM register_token WHERE uuid=:uuid");
-        $query->bindValue(':uuid', $_GET["token"], PDO::PARAM_STR);
+        $query->bindValue(':uuid', urldecode($_GET["token"]), PDO::PARAM_STR);
         $query->execute();
         $uuid_data = $query->fetchAll();
-        
-        //var_dump($uuid_data);
         
         if(count($uuid_data) != 1)
         {
@@ -24,7 +22,7 @@ function pageLogic($previousData){
         }else{
             //echo "1.";
             $result = $_SESSION["user"]->registerFromPOST($uuid_data[0]["role"]);
-            
+         
             if($result == true){
                 //echo "2.";
                 $query = $db->prepare("DELETE FROM register_token WHERE uuid = ?");

@@ -52,7 +52,7 @@
                 <label for="inputEmail">Adresse Email</label>
               </div>
             </div>
-            {% if not admin %}
+            {% if not admin or values.id == user.id %}
             <div class="form-group">
                
                 
