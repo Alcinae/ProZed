@@ -11,6 +11,7 @@ function pageLogic($previousData){
     
     $ret = [];
     
+    
     //this is now done in custom_global.php
     /*
     function pageLogic($previousData){
@@ -30,6 +31,7 @@ function pageLogic($previousData){
 
     $showForm = $_SESSION["user"]->hasCap("Participant");
     if($previousData["currentChallenge"]["isRunning"] && $showForm){
+        $db = getDB();
         require_once("controllers/partials/d_form.php");
     }
     $ret["showForm"] = $_SESSION["user"]->hasCap("Participant");
