@@ -1,4 +1,8 @@
 $.get('map.php').then(function(data) {
+    if(data.user === false){
+        data.user = {};
+        data.user = data.others[0];
+    }
     var map = L.map('map').setView([data.user.latitude, data.user.longitude], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
