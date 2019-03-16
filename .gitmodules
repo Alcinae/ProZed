@@ -10,3 +10,6 @@
 [submodule "vendor/php/PHPMailer"]
 	path = vendor/php/PHPMailer
 	url = https://github.com/PHPMailer/PHPMailer.git
+[submodule "vendor/php/simple-cache"]
+	path = vendor/php/simple-cache
+	url = https://github.com/php-fig/simple-cache.git

@@ -21,6 +21,8 @@ $pages = [
     
     "logout" => new Page("logout", "Luluzed - Deconnexion", "logout", "logout", "", []),
     
+    "forgot-password" => new Page("forgot-password", "Luluzed - Mot de passe oublié", "forgot-password", "forgot-password", "", []),
+    
     "admin_membres" => new Page("admin_membres", "Luluzed - Administration - Membres", "admin_membres", "admin_membres", "admin", ["admin_membres"], ["Tableau de bord" => "index", "Administration" => null, "Membres" => null]),
     
     "admin_actu" => new Page("admin_actu", "Luluzed - Administration - Actualites", "admin_actu", "admin_actu", "admin", ["admin_actu"], ["Tableau de bord" => "index", "Administration" => null, "Actualites" => null]),

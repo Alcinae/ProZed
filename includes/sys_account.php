@@ -126,12 +126,12 @@ class User {
             "family_size" => array("filter" => FILTER_VALIDATE_INT, "options" => array("default" => 1, "min_range" => 1)),
             "password" => FILTER_SANITIZE_STRING,
             "password2" => FILTER_SANITIZE_STRING,
-            "consent_email" => array("filter" => FILTER_VALIDATE_BOOLEAN, "flags" => FILTER_NULL_ON_FAILURE),
-            "consent_map" => array("filter" => FILTER_VALIDATE_BOOLEAN, "flags" => FILTER_NULL_ON_FAILURE)/*,
+            "consent_email" => array("filter" => FILTER_VALIDATE_BOOLEAN, "options" => array("default" => false), "flags" => FILTER_NULL_ON_FAILURE),
+            "consent_map" => array("filter" => FILTER_VALIDATE_BOOLEAN, "options" => array("default" => false), "flags" => FILTER_NULL_ON_FAILURE)/*,
             "role" => FILTER_DEFAULT */
             ];
 
-        //required fields and their error message
+        //required fields and their error messages
         $required = ["fname" => "Prénom invalide ou vide !","lname" => "Nom invalide ou vide !","email" => "Adresse email invalide.","city" => "Ville invalide.","family_size" => "Nombre de personnes dans la famille invalide.","password" => "Mot de passe invalide."/*,"password2" => "Mot de passe de vérification invalide."*/];
         
         
@@ -265,10 +265,13 @@ class User {
             
         }
         
+        //var_dump($_POST);
+        //var_dump($inputs);
+        
         //var_dump($queryCmd);
         $query = $db->prepare($queryCmd);
         foreach($inputs as $key => $value){
-            $query->bindValue(":{$key}", $value);
+            $query->bindValue(":{$key}", $value/*, (gettype($value) === "boolean") ? PDO::PARAM_BOOL : null */);
         }
             
         $result = $query->execute();
@@ -301,7 +304,7 @@ class User {
             $locationQuery->execute();
         
         }else{
-            $locationQuery = $db->prepare("DELETE FROM locations WHERE members = ?;");
+            $locationQuery = $db->prepare("DELETE FROM locations WHERE member = ?;");
             $locationQuery->execute([$id]);
         }
         

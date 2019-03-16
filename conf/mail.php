@@ -1,4 +1,5 @@
 <?php
+    use PHPMailer\PHPMailer\PHPMailer;
     require("vendor/php/autoload.php");
     
     

@@ -1,6 +1,10 @@
 <?php
 function pageLogic($previousData){
 
+
+
+
+    
     if(!empty($_POST)){
         if(isset($_POST["idStr"]) && isset($_POST["password"]))
         {
@@ -10,10 +14,12 @@ function pageLogic($previousData){
         }
     }
 
+    
     if($_SESSION["user"]->isInitialized())
     {
         header("Location: index.html");
         die();
     }
+
 }
 ?>

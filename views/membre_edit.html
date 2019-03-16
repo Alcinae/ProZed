@@ -99,14 +99,14 @@
               <div class="checkbox">
                   <div >
                     <label for="consentCarte">
-                    <input type="checkbox" name="consent_map" id="consentCarte" name="consentCarte" value="{% if values.consent_map %}true{% else %}false{% endif %}" {% if values.consent_map %}checked{% endif %}>
+                    <input type="checkbox" name="consent_map" id="consentCarte" {% if values.consent_map %}checked{% endif %}>
                     J'accepte d'apparaître sur la carte. (Acessible aux membres uniquement)</label>
                   </div>
               </div>
               <div class="checkbox">
                   <div >
                     <label for="consentMail">
-                    <input type="checkbox" name="consent_email" id="consentMail" name="consentMail" value="{% if values.consent_email %}true{% else %}false{% endif %}" {% if values.consent_email %}checked{% endif %}>
+                    <input type="checkbox" name="consent_email" id="consentMail" {% if values.consent_email %}checked{% endif %}>
                     J'accepte de reçevoir des mails de la part de Luluzed. (<strong>Important</strong>)</label>
                   </div>
               </div>  
@@ -114,7 +114,7 @@
               <div class="checkbox">
                   <div >
                     <label for="admin">
-                    <input type="checkbox" name="admin" id="admin" name="admin" value="{% if values.admin %}true{% else %}false{% endif %}" {% if values.admin %}checked{% endif %}>
+                    <input type="checkbox" name="admin" id="admin" {% if values.admin %}checked{% endif %}>
                    Administrateur. (<strong>Attention !</strong>)</label>
                   </div>
               </div>  

@@ -34,7 +34,7 @@ function pageLogic($previousData){
         $db = getDB();
         require_once("controllers/partials/d_form.php");
     }
-    $ret["showForm"] = $_SESSION["user"]->hasCap("Participant");
+    $ret["showForm"] = $showForm;
     return $ret;
 }
 ?>
