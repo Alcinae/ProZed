@@ -13,7 +13,7 @@ $pages = [
     
     "membre_edit" => new Page("membre_edit", "Luluzed - Info membre", "membre_edit", "membre_edit", "member", [], ["Tableau de bord" => "index", "Espace membres" => null]),
     
-    "defi" => new Page("defi", "Luluzed - Mon defi", "defi", "defi", "Participant", ["defi"], ["Tableau de bord" => "index", "Mon Defi" => null]),
+    "defi" => new Page("defi", "Luluzed - Mon defi", "defi", "defi", "Participant", ["defi", "modalConfirmClassic"], ["Tableau de bord" => "index", "Mon Defi" => null]),
     
     "ateliers" => new Page("ateliers", "Luluzed - Agenda", "ateliers", "ateliers", "member", ["ateliers"], ["Tableau de bord" => "index", "Agenda" => null]),
     
@@ -23,11 +23,11 @@ $pages = [
     
     "forgot-password" => new Page("forgot-password", "Luluzed - Mot de passe oublié", "forgot-password", "forgot-password", "", []),
     
-    "admin_membres" => new Page("admin_membres", "Luluzed - Administration - Membres", "admin_membres", "admin_membres", "admin", ["admin_membres"], ["Tableau de bord" => "index", "Administration" => null, "Membres" => null]),
+    "admin_membres" => new Page("admin_membres", "Luluzed - Administration - Membres", "admin_membres", "admin_membres", "admin", ["admin_membres", "modalConfirmClassic"], ["Tableau de bord" => "index", "Administration" => null, "Membres" => null]),
     
-    "admin_actu" => new Page("admin_actu", "Luluzed - Administration - Actualites", "admin_actu", "admin_actu", "admin", ["admin_actu"], ["Tableau de bord" => "index", "Administration" => null, "Actualites" => null]),
+    "admin_actu" => new Page("admin_actu", "Luluzed - Administration - Actualites", "admin_actu", "admin_actu", "admin", ["admin_actu", "modalConfirmClassic"], ["Tableau de bord" => "index", "Administration" => null, "Actualites" => null]),
     
-    "admin_ateliers" => new Page("admin_ateliers", "Luluzed - Administration - Ateliers", "admin_ateliers", "admin_ateliers", "admin", ["admin_ateliers"], ["Tableau de bord" => "index", "Administration" => null, "Agenda" => null]),
+    "admin_ateliers" => new Page("admin_ateliers", "Luluzed - Administration - Ateliers", "admin_ateliers", "admin_ateliers", "admin", ["admin_ateliers", "modalConfirmClassic"], ["Tableau de bord" => "index", "Administration" => null, "Agenda" => null]),
     
     "503" => new Page("503", "Luluzed - Acces refusé", "", "503", "", [])
     ];

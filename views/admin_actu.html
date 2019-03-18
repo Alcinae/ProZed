@@ -28,7 +28,7 @@
                       {% else %}
                         <td><em>Aucune</em></td>
                       {% endif %}
-                      <td><a href="admin_actu.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                      <td><a href="admin_actu.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger delete-link" data-modalHint="{{value.message}}"><i class="fa fa-times-circle"></i></a></td>
                     </tr>
                    {% endfor %}
       
@@ -93,7 +93,24 @@
             <!--<div class="card-footer small text-muted"></div> -->
           </div>
 
-
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmModalLabel">Etes vous sûr ?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Fermer">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Voulez-vous vraiment supprimer le message "<span id="confirmModalValueData"></span>" ?</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+            <a class="btn btn-primary" id="confirmModalLink" href="#">Oui</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
   
   
   {{ include('partials/footer.html') }} 

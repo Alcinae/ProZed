@@ -74,7 +74,7 @@
                       <td>{{value.email}}</td>
                       <td>{{roleMapping[value.role]}}</td>
                       <td><a href="membre_edit.html?id={{value.id}}&token={{csrf}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                      <a href="admin_membres.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger"><i class="fa fa-times-circle"></i></a></td>
+                      {% if value.id != user.getID %}<a href="admin_membres.html?del={{value.id}}&token={{csrf}}" class="btn btn-danger delete-link" data-modalHint="{{value.lname}} ({{value.email}})"><i class="fa fa-times-circle"></i></a>{% endif %}</td>
                     </tr>
                   {% endfor %}
                   </tbody>
@@ -82,4 +82,26 @@
               </div>
             </div>
             </div> 
+            
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmModalLabel">Etes vous sûr ?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Fermer">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Voulez-vous vraiment supprimer le membre <span id="confirmModalValueData"></span> ?</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+            <a class="btn btn-primary" id="confirmModalLink" href="#">Oui</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+            
+            
+            
    {{ include('partials/footer.html') }} 
