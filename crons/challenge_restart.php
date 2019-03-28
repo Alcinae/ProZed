@@ -18,5 +18,6 @@ $db->query("INSERT INTO challenges_info(start, end) VALUES(DATE_ADD(DATE_ADD(MAK
 $db->query("DELETE FROM members WHERE admin != 1;"); //cleanup users.
 
 $db->query("DELETE FROM challenge;"); //cleanup previous challenge data.
+$db->query("DELETE FROM absences;"); //cleanup previous challenge data.
 
 ?> 
